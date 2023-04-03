@@ -1,9 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Welcome from "./screens/welcome";
+import ForgetPassword from './screens/forgetPassword';
+
 
 export default function App() {
-  return <Welcome />;
+  return (
+    
+   <Welcome />
+   
+  );
 }
 
 const styles = StyleSheet.create({
