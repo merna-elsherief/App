@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
 
 const customButton = () => {
   return (
@@ -10,21 +10,22 @@ const customButton = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: '50%',
     padding: 15,
     marginVertical: 5,
-    alignItems: "center",
+    alignItems: 'center',
+    left: 150,
     top: 20,
-    backgroundColor: "black",
+    backgroundColor: '#c2956e',
 
     // backgroundColor: "#fff",
     // alignItems: "center",
     // justifyContent: "center",
   },
   text: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 20,
-    color: "white",
+    color: 'white',
   },
 });
 export default customButton;
