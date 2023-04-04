@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -10,20 +11,30 @@ import {
 import React from "react";
 import img from "../assets/images/image.jpg";
 import CustomButton from "../components/customButton";
+import CustomInput from "../components/customInput";
 const forgetPassword = () => {
   const { height } = useWindowDimensions();
+  const [Email, setEmail] = useState("");
+  const handleForgetPassword = () => {
+    console.log("Done");
+  };
   return (
     <View style={styles.container}>
-      <ImageBackground
+      <Image
         source={img}
         resizeMode="contain"
         style={[styles.img, { height: height * 0.3 }]}
-      >
-        <Text style={styles.title}>
-          <Text style={styles.span}> Forget Password? </Text>
-        </Text>
-      </ImageBackground>
-      <CustomButton text="Get Started" type="Default" />
+      />
+      <Text style={styles.title}>
+        <Text style={styles.span}> Forget Password? </Text>
+      </Text>
+      <CustomInput placeholder={"email"} value={Email} setValue={setEmail} />
+      <CustomButton
+        text="Send Link"
+        type="Defualt"
+        onPress={handleForgetPassword}
+      />
+      <CustomButton text="Back to sign in" type="Link" />
     </View>
   );
 };
@@ -45,6 +56,7 @@ const styles = StyleSheet.create({
   span: {
     color: "#ffff",
     fontWeight: "bold",
+    color: "Black",
   },
   text: {
     fontWeight: "bold",
