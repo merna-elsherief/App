@@ -15,7 +15,7 @@ const index=()=>{
     return(
         <NavigationContainer>
         <SafeAreaView style={styles.root}>
-        <Stack.Navigator screenOptions={{headerShown : false}}>
+        <Stack.Navigator screenOptions={{headerShown : true}}>
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
