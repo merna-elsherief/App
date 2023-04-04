@@ -53,17 +53,13 @@ const signIn = ({ navigation }) => {
         setValue={setPassword}
         secureTextEntry={true}
       />
-      <CustomButton text='Sign in' type='Default' onPress={handleSignIn} />
+      <CustomButton text='Sign in' onPress={handleSignIn} />
       <CustomButton
         text='Forget Password?'
         type='Link'
         onPress={handleForgetPassWordPress}
       />
-      <CustomButton
-        text='Sign in With Google'
-        type='Default'
-        bgColor='#708a81'
-      />
+      <CustomButton text='Sign in With Google' bgColor='#708a81' />
       <CustomButton
         text='Don’t have an account? Create one'
         type='Link'

@@ -31,7 +31,7 @@ const profile = () => {
         <Text style={styles.title}>
           <Text style={styles.span}>Welcome {auth.currentUser.email} </Text>
         </Text>
-        <CustomButton text='Sign Out' type='Button' onPress={handleSignOut} />
+        <CustomButton text='Sign Out' onPress={handleSignOut} />
       </ImageBackground>
     </View>
   );
