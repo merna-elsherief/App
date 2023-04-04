@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   img: {
-    flex: 0.7,
+    flex: 1,
     width: '100%',
     height: '100%',
     justifyContent: 'center',
