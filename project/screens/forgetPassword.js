@@ -5,14 +5,28 @@ import {StyleSheet , View, Text , TouchableOpacity ,
 import React from 'react';
 import { TextInput } from 'react-native-web';
 import OIP from '../assets/images/OIP.jpg';
+import { sendPasswordResetEmail } from "firebase/auth";
+import auth from '../firebase/fireBase';
 
-
-const forgetPassword = () => {
+const forgetPassword = ({navigation}) => {
 const { height } = useWindowDimensions();
 const [Email , setEmail] = useState("");
+
 const handleforgetPassword = () => {
- console.log('done')
+  sendPasswordResetEmail(auth, Email)
+  .then(() => {
+    console.log("done");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
 }
+const handleSignInPress = () => {
+  navigation.navigate("SignIn");
+ };
+
   return (
     <View style={styles.container}>
          <Image source={OIP} style={[styles.logo, {height:height*0.5}]} resizeMode="contain"/>
@@ -36,7 +50,7 @@ const handleforgetPassword = () => {
           <Text  style={styles.cc} >Send Link</Text> 
       </TouchableOpacity> 
 
-      <TouchableOpacity type="Link" >
+      <TouchableOpacity type="Link" onPress={handleSignInPress}>
         <Text style={styles.ccc}> Back to sign in </Text>
       </TouchableOpacity>
 

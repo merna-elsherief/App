@@ -8,8 +8,14 @@ import {
 import React from "react";
 import Logo from "../assets/images/img.jpg";
 import CustomButton from "../components/customButton";
-const welcome = () => {
+
+const welcome = ({navigation}) => {
   const { height } = useWindowDimensions();
+  
+  const handleGetStarted = () => {
+      navigation.navigate("SignIn");
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -21,7 +27,7 @@ const welcome = () => {
         welcome <Text style={styles.span}>Kotobna</Text>
       </Text>
       <Text style={styles.text}>new app for your brain cells</Text>
-      <CustomButton/>
+      <CustomButton onPress={handleGetStarted}/>
     </View>
   );
 };
