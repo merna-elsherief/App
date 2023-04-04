@@ -9,14 +9,33 @@ import {
 } from 'react-native';
 import React from 'react';
 import img from '../assets/images/image.jpg';
-import CustomButton from '../components/customButton';
+import CustomButton from '../components/customButton'
+ 
+import React from "react";
+import Logo from "../assets/images/img.jpg";
+import CustomButton from "../components/customButton";
+
 const welcome = ({navigation}) => {
+
+
   const { height } = useWindowDimensions();
   const handleGetStarted = () => {
     navigation.navigate("SignIn");
 };
   return (
     <View style={styles.container}>
+
+      <Image
+        source={Logo}
+        style={[styles.logo, { height: height * 0.5 }]}
+        resizeMode="contain"
+      />
+      <Text style={styles.title}>
+        welcome <Text style={styles.span}>Kotobna</Text>
+      </Text>
+      <Text style={styles.text}>new app for your brain cells</Text>
+      <CustomButton onPress={handleGetStarted}/>
+
       <ImageBackground source={img} resizeMode='cover' style={styles.img}>
         <Text style={styles.title}>
           <Text style={styles.span}> welcome The Cozy Library</Text>
@@ -28,6 +47,8 @@ const welcome = ({navigation}) => {
           style={{ height: 40, borderColor: 'white', borderWidth: 0.5 }}
           onPress={handleGetStarted}/>
       </ImageBackground>
+
+      
     </View>
   );
 };
