@@ -11,11 +11,18 @@ import React from "react";
 import img from "../assets/images/image3.jpg";
 import CustomButton from "../components/customButton";
 import CustomInput from "../components/customInput";
-const signUp = () => {
+const signUp = ({ navigation }) => {
   const { height } = useWindowDimensions();
   const handleSignUp = () => {
     console.log("Done");
   };
+  const handleForgetPasswordPress=()=>{
+    navigation.navigate("ForgetPassword");
+  }
+
+  const handleSignInPress=()=>{
+    navigation.navigate("SignIn");  
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create An Account</Text>
@@ -23,9 +30,9 @@ const signUp = () => {
       <CustomInput placeholder="Email" />
       <CustomInput placeholder="Password" />
       <CustomButton text="Sign Up" onPress={handleSignUp} />
-      <CustomButton text="Forget Password?" type="Link" />
+      <CustomButton text="Forget Password?" type="Link" onPress={handleForgetPasswordPress}/>
       <CustomButton text="Sign Up With Google" bgColor="#708a81" />
-      <CustomButton text="Sign In" type="Link" />
+      <CustomButton text="Sign In" type="Link" onPress={handleSignInPress} />
     </View>
   );
 };

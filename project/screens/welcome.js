@@ -10,15 +10,18 @@ import {
 import React from 'react';
 import img from '../assets/images/image.jpg';
 import CustomButton from '../components/customButton';
-const welcome = () => {
+const welcome = ({ navigation }) => {
   const { height } = useWindowDimensions();
+  const handleGetStarted=()=>{
+    navigation.navigate("SignIn");
+  }
   return (
     <View style={styles.container}>
       <ImageBackground source={img} resizeMode='cover' style={styles.img}>
         <Text style={styles.title}>
           <Text style={styles.span}> welcome The Cozy Library</Text>
         </Text>
-        <CustomButton text='Get Started' type='Default' />
+        <CustomButton text='Get Started' type='Default' onPress={handleGetStarted} />
       </ImageBackground>
     </View>
   );

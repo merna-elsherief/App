@@ -11,8 +11,14 @@ import React from 'react';
 import img from '../assets/images/image3.jpg';
 import CustomButton from '../components/customButton';
 import CustomInput from '../components/customInput';
-const signIn = () => {
+const signIn = ({ navigation }) => {
   const { height } = useWindowDimensions();
+  const handleForgetPassWordPress=()=>{
+    navigation.navigate("ForgetPassword");
+  }
+  const handleCreatOnePress = () =>{
+    navigation.navigate("SignUp");
+  }
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -23,9 +29,9 @@ const signIn = () => {
       <CustomInput placeholder='Email' />
       <CustomInput placeholder='Password' />
       <CustomButton text='Sign in' />
-      <CustomButton text='Forget Password?' type='Link' />
+      <CustomButton text='Forget Password?' type='Link' onPress={handleForgetPassWordPress}/>
       <CustomButton text='Sign in With Google' bgColor='#708a81' />
-      <CustomButton text='Don’t have an account? Create one' type='Link' />
+      <CustomButton text='Don’t have an account? Create one' type='Link' onPress={handleCreatOnePress}/>
     </View>
   );
 };
