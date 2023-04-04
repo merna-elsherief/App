@@ -18,12 +18,7 @@ const welcome = () => {
         <Text style={styles.title}>
           <Text style={styles.span}> welcome The Cozy Library</Text>
         </Text>
-        <Text style={styles.text}>
-          A book is a gift you can open again and again
-        </Text>
-        <CustomButton
-          style={{ height: 40, borderColor: 'white', borderWidth: 0.5 }}
-        />
+        <CustomButton text='Get Started' type='Default' />
       </ImageBackground>
     </View>
   );
@@ -45,8 +40,10 @@ const styles = StyleSheet.create({
   },
   span: {
     color: '#ffff',
+    fontWeight: 'bold',
   },
   text: {
+    fontWeight: 'bold',
     fontSize: 20,
     color: '#ffff',
     marginLeft: 50,
