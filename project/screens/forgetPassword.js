@@ -12,11 +12,23 @@ import React from "react";
 import img from "../assets/images/image.jpg";
 import CustomButton from "../components/customButton";
 import CustomInput from "../components/customInput";
+import { sendPasswordResetEmail } from "firebase/auth";
+import auth from "../firebase/fireBase";
 const forgetPassword = () => {
   const { height } = useWindowDimensions();
-  const [Email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const handleForgetPassword = () => {
-    console.log("Done");
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        // Password reset email sent!
+        // ..
+        console.log("Done");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
   };
   return (
     <View style={styles.container}>
@@ -28,7 +40,7 @@ const forgetPassword = () => {
       <Text style={styles.title}>
         <Text style={styles.span}> Forget Password? </Text>
       </Text>
-      <CustomInput placeholder={"email"} value={Email} setValue={setEmail} />
+      <CustomInput placeholder={"email"} value={email} setValue={setEmail} />
       <CustomButton
         text="Send Link"
         type="Defualt"
