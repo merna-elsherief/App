@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native';
+import {  StyleSheet,
+  View,
+  Text,
+  Image,
+  useWindowDimensions,
+  ImageBackground,
+  style, } from 'react-native';
+import img from "../assets/images/image1.jpg";
 import React from 'react';
 import auth from '../firebase/fireBase';
 import CustomButton from '../components/customButton';
@@ -17,11 +24,46 @@ const profile = () => {
       });
   };
   return (
-    <View>
-      <Text>Welcome {auth.currentUser.email}</Text>
-      <CustomButton text='Sign Out' onPress={handleSignOut} />
+    <View style={styles.container}>
+      <ImageBackground source={img} resizeMode='cover' style={styles.img}>
+        <Text style={styles.title}>
+          <Text style={styles.span}>Welcome {auth.currentUser.email} </Text>
+        </Text>
+        <CustomButton text='Sign Out' onPress={handleSignOut} />
+
+      </ImageBackground>
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 20,
+  },
+  img: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    marginBottom: 20,
+    
+  },
+  title: {
+    fontSize: 50,
+    justifyContent: 'center',
+    marginRight: 10,
+  },
+  span: {
+    color: '#ffff',
+    fontWeight: 'bold',
+  },
+  text: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: '#ffff',
+    marginLeft: 50,
+  },
+});
 export default profile;
+// {/* <Text></Text> */}
