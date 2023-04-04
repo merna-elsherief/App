@@ -1,11 +1,13 @@
-import {  StyleSheet,
+import {
+  StyleSheet,
   View,
   Text,
   Image,
   useWindowDimensions,
   ImageBackground,
-  style, } from 'react-native';
-import img from "../assets/images/image1.jpg";
+  style,
+} from 'react-native';
+import img from '../assets/images/image3.jpg';
 import React from 'react';
 import auth from '../firebase/fireBase';
 import CustomButton from '../components/customButton';
@@ -29,8 +31,7 @@ const profile = () => {
         <Text style={styles.title}>
           <Text style={styles.span}>Welcome {auth.currentUser.email} </Text>
         </Text>
-        <CustomButton text='Sign Out' onPress={handleSignOut} />
-
+        <CustomButton text='Sign Out' type='Button' onPress={handleSignOut} />
       </ImageBackground>
     </View>
   );
@@ -43,15 +44,15 @@ const styles = StyleSheet.create({
   },
   img: {
     flex: 1,
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
     marginBottom: 20,
-    
   },
   title: {
     fontSize: 50,
     justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 10,
   },
   span: {
