@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
 
 const customButton = ({
   text,
-  type = "Button",
+  type = 'Button',
   bgColor,
   txtColor,
   onPress,
@@ -31,10 +31,10 @@ const customButton = ({
 };
 const styles = StyleSheet.create({
   container: {
-    width: "80%",
+    width: '80%',
     padding: 15,
-    alignItems: "center",
-    backgroundColor: "#c2956e",
+    alignItems: 'center',
+    backgroundColor: '#c2956e',
     marginTop: 15,
 
     // backgroundColor: "#fff",
@@ -42,26 +42,26 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
   },
   containerLink: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   containerDefault: {
-    width: "80%",
+    width: '80%',
     padding: 15,
     marginVertical: 50,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    backgroundColor: "#c2956e",
-    marginLeft: 70,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: '#c2956e',
+    marginLeft: 40,
     marginTop: 60,
   },
   text: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 20,
-    color: "white",
+    color: 'white',
   },
   textLink: {
     fontSize: 15,
-    color: "#2b2129",
+    color: '#2b2129',
   },
 });
 export default customButton;
