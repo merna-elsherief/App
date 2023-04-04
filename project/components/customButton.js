@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   },
   containerLink: {
     backgroundColor: 'white',
+    left: 20,
   },
   containerDefault: {
     width: '80%',
@@ -51,9 +52,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: '#c2956e',
-    marginLeft: 40,
+    marginLeft: 50,
     marginTop: 60,
   },
+  containerButton: {
+    left: 60,
+  },
+
   text: {
     fontWeight: 'bold',
     fontSize: 20,
