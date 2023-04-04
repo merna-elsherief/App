@@ -13,7 +13,8 @@ import img from '../assets/images/image3.jpg';
 import CustomButton from '../components/customButton';
 import CustomInput from '../components/customInput';
 import auth from '../firebase/fireBase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider } from 'firebase/auth';
 const signIn = ({ navigation }) => {
   const { height } = useWindowDimensions();
   const [email, setEmail] = useState('');
@@ -21,6 +22,7 @@ const signIn = ({ navigation }) => {
   const handleForgetPassWordPress = () => {
     navigation.navigate('ForgetPassword');
   };
+
   const handleCreatOnePress = () => {
     navigation.navigate('SignUp');
   };
@@ -37,6 +39,31 @@ const signIn = ({ navigation }) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
+      });
+  };
+  const handlegoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then(result => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        console.log('Done');
+        navigation.navigate('Profile');
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch(error => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
       });
   };
   return (
@@ -59,7 +86,11 @@ const signIn = ({ navigation }) => {
         type='Link'
         onPress={handleForgetPassWordPress}
       />
-      <CustomButton text='Sign in With Google' bgColor='#708a81' />
+      <CustomButton
+        text='Sign in With Google'
+        onPress={handlegoogle}
+        bgColor='#708a81'
+      />
       <CustomButton
         text='Don’t have an account? Create one'
         type='Link'
