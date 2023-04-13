@@ -7,7 +7,7 @@ import {
   ImageBackground,
   style,
 } from 'react-native';
-import img from '../assets/images/image3.jpg';
+//import img from '../assets/images/image5.jpg';
 import React from 'react';
 import auth from '../firebase/fireBase';
 import CustomButton from '../components/customButton';
@@ -27,12 +27,10 @@ const profile = () => {
   };
   return (
     <View style={styles.container}>
-      <ImageBackground source={img} resizeMode='cover' style={styles.img}>
-        <Text style={styles.title}>
-          <Text style={styles.span}>Welcome {auth.currentUser.email} </Text>
-        </Text>
-        <CustomButton text='Sign Out' onPress={handleSignOut} />
-      </ImageBackground>
+      <Text style={styles.title}>
+        <Text style={styles.span}> Welcome {auth.currentUser.email} </Text>
+      </Text>
+      <CustomButton text='Sign Out' onPress={handleSignOut} />
     </View>
   );
 };
@@ -40,14 +38,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    padding: 20,
+    justifyContent: 'center',
+    backgroundColor: '#E6D4CA',
+    justifyContent: 'center',
+    padding: 50,
   },
   img: {
     flex: 1,
     width: '100%',
     height: '100%',
+    alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    padding: 50,
   },
   title: {
     fontSize: 50,
@@ -56,8 +58,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   span: {
-    color: '#ffff',
+    color: '#c2956e',
     fontWeight: 'bold',
+    justifyContent: 'center',
+    padding: 5,
   },
   text: {
     fontWeight: 'bold',

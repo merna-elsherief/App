@@ -31,11 +31,13 @@ const customButton = ({
 };
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
+    width: '90%',
     padding: 15,
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#c2956e',
     marginTop: 15,
+    borderRadius: 25,
 
     // backgroundColor: "#fff",
     // alignItems: "center",
@@ -45,14 +47,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   containerDefault: {
-    width: '80%',
-    padding: 15,
-    marginVertical: 50,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    width: '90%',
     backgroundColor: '#c2956e',
-    marginLeft: 40,
-    marginTop: 60,
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 40,
+    marginBottom: 10,
   },
 
   text: {
