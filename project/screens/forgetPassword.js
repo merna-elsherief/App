@@ -9,7 +9,7 @@ import {
   style,
 } from 'react-native';
 import React from 'react';
-import img from '../assets/images/image.jpg';
+import img from '../assets/images/image10.jpg';
 import CustomButton from '../components/customButton';
 import CustomInput from '../components/customInput';
 import { sendPasswordResetEmail } from 'firebase/auth';

@@ -9,7 +9,7 @@ import {
   style,
 } from 'react-native';
 import React from 'react';
-import img from '../assets/images/image3.jpg';
+import img from '../assets/images/image12.jpg';
 import CustomButton from '../components/customButton';
 import CustomInput from '../components/customInput';
 import auth from '../firebase/fireBase';
@@ -68,34 +68,31 @@ const signIn = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={img}
-        resizeMode='contain'
-        style={styles.img}
-      ></ImageBackground>
-      <CustomInput placeholder='Email' value={email} setValue={setEmail} />
-      <CustomInput
-        placeholder='Password'
-        value={password}
-        setValue={setPassword}
-        secureTextEntry={true}
-      />
-      <CustomButton text='Sign in' onPress={handleSignIn} />
-      <CustomButton
-        text='Forget Password?'
-        type='Link'
-        onPress={handleForgetPassWordPress}
-      />
-      <CustomButton
-        text='Sign in With Google'
-        onPress={handlegoogle}
-        bgColor='#708a81'
-      />
-      <CustomButton
-        text='Don’t have an account? Create one'
-        type='Link'
-        onPress={handleCreatOnePress}
-      />
+      <ImageBackground source={img} resizeMode='cover' style={styles.img}>
+        <CustomInput placeholder='Email' value={email} setValue={setEmail} />
+        <CustomInput
+          placeholder='Password'
+          value={password}
+          setValue={setPassword}
+          secureTextEntry={true}
+        />
+        <CustomButton text='Sign in' onPress={handleSignIn} />
+        <CustomButton
+          text='Forget Password?'
+          type='Link'
+          onPress={handleForgetPassWordPress}
+        />
+        <CustomButton
+          text='Sign in With Google'
+          onPress={handlegoogle}
+          bgColor='#708a81'
+        />
+        <CustomButton
+          text='Don’t have an account? Create one'
+          type='Link'
+          onPress={handleCreatOnePress}
+        />
+      </ImageBackground>
     </View>
   );
 };
@@ -104,13 +101,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 20,
+    backgroundColor: '#E6D4CA',
   },
   img: {
     flex: 1,
     width: '100%',
     height: '100%',
+    alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
   },
   title: {
     fontSize: 50,
