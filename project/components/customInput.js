@@ -5,8 +5,8 @@ import {
   StyleSheet,
   paddingHorizontal,
   placeholder,
-} from "react-native";
-import React from "react";
+} from 'react-native';
+import React from 'react';
 const customInput = ({ placeholder, value, setValue, secureTextEntry }) => {
   return (
     <View style={styles.container}>
@@ -22,17 +22,17 @@ const customInput = ({ placeholder, value, setValue, secureTextEntry }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#e5d1b8",
-    width: "100%",
+   backgroundColor: '#ffff',
+    width: '100%',
     height: 50,
     marginVertical: 10,
     paddingHorizontal: 10,
-    borderColor: "white",
+    borderColor: 'white',
     borderWidth: 2,
     borderRadius: 999,
   },
   input: {
-    height: "100%",
+    height: '100%',
     fontSize: 20,
   },
 });
