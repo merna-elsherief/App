@@ -18,7 +18,7 @@ const index = () => {
           <Stack.Screen name='SignIn' component={SignIn} />
           <Stack.Screen name='SignUp' component={SignUp} />
           <Stack.Screen name='ForgetPassword' component={ForgetPassword} />
-          <Stack.Screen name='profile' component={Profile} />
+          <Stack.Screen name='Profile' component={Profile} />
         </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>
