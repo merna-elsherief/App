@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -14,17 +14,24 @@ import CustomButton from '../components/customButton';
 import CustomInput from '../components/customInput';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import auth from '../firebase/fireBase';
+} from "react-native";
+import React from "react";
+import img from "../assets/images/image10.jpg";
+import CustomButton from "../components/customButton";
+import CustomInput from "../components/customInput";
+import { sendPasswordResetEmail } from "firebase/auth";
+import auth from "../firebase/fireBase";
 const forgetPassword = ({ navigation }) => {
   const { height } = useWindowDimensions();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const handleForgetPassword = () => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
         // Password reset email sent!
         // ..
-        console.log('Done');
+        console.log("Done");
       })
-      .catch(error => {
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // ..
@@ -34,17 +41,17 @@ const forgetPassword = ({ navigation }) => {
     <View style={styles.container}>
       <Image
         source={img}
-        resizeMode='contain'
+        resizeMode="contain"
         style={[styles.img, { height: height * 0.3 }]}
       />
       <Text style={styles.title}>
         <Text style={styles.span}> Forget Password? </Text>
       </Text>
-      <CustomInput placeholder={'email'} value={email} setValue={setEmail} />
-      <CustomButton text='Send Link' onPress={handleForgetPassword} />
+      <CustomInput placeholder={"email"} value={email} setValue={setEmail} />
+      <CustomButton text="Send Link" onPress={handleForgetPassword} />
       <CustomButton
-        text='Back to sign in'
-        onPress={() => navigation.navigate('SignIn')}
+        text="Back to sign in"
+        onPress={() => navigation.navigate("SignIn")}
       />
     </View>
   );
@@ -52,27 +59,27 @@ const forgetPassword = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 20,
   },
   img: {
-    width: '100%',
-    justifyContent: 'center',
+    width: "100%",
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginRight: 10,
   },
   span: {
-    color: '#ffff',
-    fontWeight: 'bold',
-    color: 'Black',
+    color: "#ffff",
+    fontWeight: "bold",
+    color: "Black",
   },
   text: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
-    color: '#ffff',
+    color: "#ffff",
     marginLeft: 50,
   },
 });
