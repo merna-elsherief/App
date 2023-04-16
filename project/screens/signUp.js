@@ -61,14 +61,14 @@ const signUp = ({ navigation }) => {
     //password must have 8 or more characters
     if(!password.trim() || password.length < 8) 
     return updateError('Password is less than 8 characters!', setError);
-  
+    else
+      handleSignUp();
+    
     return true;
   }
 
 
   const handleSignUp = () => {
-
-    if(isValidForm()){
       
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
@@ -79,7 +79,7 @@ const signUp = ({ navigation }) => {
 
         // ...
       })
-    } else {
+    
       then
       .catch(error => {
         const errorCode = error.code;
@@ -87,7 +87,7 @@ const signUp = ({ navigation }) => {
         console.log(errorMessage);
         // ..
       });
-    }
+    
   };
 
   return (
@@ -123,7 +123,7 @@ const signUp = ({ navigation }) => {
         secureTextEntry={true}
       />
       </View>
-      <CustomButton text='Sign up' onPress={handleSignUp} />
+      <CustomButton text='Sign up' onPress={isValidForm} />
     </View>
   );
 };
