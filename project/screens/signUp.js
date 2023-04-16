@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
+  TextInput,
   Image,
   useWindowDimensions,
   ImageBackground,
@@ -14,12 +15,63 @@ import img from '../assets/images/image3.jpg';
 import CustomButton from '../components/customButton';
 import CustomInput from '../components/customInput';
 import auth from '../firebase/fireBase';
+
+
+const isValidObjectForm = (obj) => {
+  return Object.values(obj).every(value => value.trim())
+}
+
+const updateError = (error, stateUpdater) => {
+  stateUpdater(error);
+  setTimeout(() => {
+    stateUpdater('')
+  }, 2500);
+}
+
+const isValidEmail = (value) =>{
+  const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  return regx.test(value)
+}
+
 const signUp = ({ navigation }) => {
   const { height } = useWindowDimensions();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+
+  const [userInfo, setUserInfo] = useState({
+    fullName: '',
+    email: '' ,
+    password: '',
+  })
+
+  const [error, setError] = useState('');
+
+  const {fullName, email, password } = userInfo;
+
+  const handleOnChangeText = (value, fieldName) =>{
+    setUserInfo({...userInfo, [fieldName]: value});
+  };
+
+  const isValidForm = () =>{
+    // we will accept only if all fields have value
+    if(!isValidObjectForm(userInfo)) return updateError('Required all fields!', setError);
+    // valid name must be 3 or more characters
+    if(!fullName.trim() || fullName.length < 3)
+    return updateError('Invalid name!', setError);
+    // only valid email id is allowed
+    if(!isValidEmail(email)) return updateError('Invalid email!', setError);
+    //password must have 8 or more characters
+    if(!password.trim() || password.length < 8) 
+    return updateError('Password is less than 8 characters!', setError);
+  
+    return true;
+  }
+
+
   const handleSignUp = () => {
+
+    if(isValidForm()){
+      console.log(userInfo);
+    }
+
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
@@ -40,14 +92,36 @@ const signUp = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create An Account</Text>
-      <CustomInput placeholder='Name' value={name} setValue={setName} />
-      <CustomInput placeholder='Email' value={email} setValue={setEmail} />
-      <CustomInput
+      {error ? 
+      <Text style={{color: 'red', fontSize:20 ,textAlign: 'center'}}> 
+        {error} 
+      </Text>: null}
+      <View style={styles.textInput}>
+      <TextInput 
+        style={styles.input}
+        placeholder='Full Name' 
+        label='Full Name'
+        value={fullName} 
+        onChangeText={value => handleOnChangeText(value,'fullName')}
+        />
+      </View>
+      <View style={styles.textInput}>
+      <TextInput 
+        style={styles.input}
+        placeholder='Email' 
+        value={email} 
+        onChangeText={value => handleOnChangeText(value,'email')}
+        />
+      </View>
+      <View style={styles.textInput}>
+      <TextInput
+        style={styles.input}
         placeholder='Password'
         value={password}
-        setValue={setPassword}
+        onChangeText={value => handleOnChangeText(value,'password')}
         secureTextEntry={true}
       />
+      </View>
       <CustomButton text='Sign up' onPress={handleSignUp} />
     </View>
   );
@@ -76,5 +150,21 @@ const styles = StyleSheet.create({
     color: '#ffff',
     marginLeft: 50,
   },
+  textInput:{
+    backgroundColor: '#ffff',
+    width: '100%',
+    height: 50,
+    marginVertical: 10,
+    paddingHorizontal: 10,
+    borderColor: 'white',
+    borderWidth: 2,
+    borderRadius: 999,
+  },
+  
+  input: {
+    height: '100%',
+    fontSize: 20,
+  },
 });
 export default signUp;
+
