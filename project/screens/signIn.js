@@ -75,8 +75,6 @@ const signIn = ({ navigation }) => {
   const handleSignIn = () => {
 
     if(isValidForm()){
-      console.log(userInfo);
-    }
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -86,11 +84,14 @@ const signIn = ({ navigation }) => {
         navigation.navigate("Profile");
         // ...
       })
+    } else {
+      then
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
       });
+    }
   };
 
   // Google Authentication

@@ -69,9 +69,7 @@ const signUp = ({ navigation }) => {
   const handleSignUp = () => {
 
     if(isValidForm()){
-      console.log(userInfo);
-    }
-
+      
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
@@ -81,12 +79,15 @@ const signUp = ({ navigation }) => {
 
         // ...
       })
+    } else {
+      then
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
         // ..
       });
+    }
   };
 
   return (
