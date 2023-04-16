@@ -56,7 +56,9 @@ const signIn = ({ navigation }) => {
     //password must have 8 or more characters
     if(!password.trim() || password.length < 8) 
     return updateError('Password is too short!', setError);
-  
+    else
+      handleSignIn();
+
     return true;
   }
 
@@ -73,9 +75,6 @@ const signIn = ({ navigation }) => {
 
   // handleSignIn
   const handleSignIn = () => {
-
-    if(isValidForm()){
-
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -84,14 +83,11 @@ const signIn = ({ navigation }) => {
         navigation.navigate("Profile");
         // ...
       })
-    } else {
-      then
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
       });
-    }
   };
 
   // Google Authentication
@@ -145,7 +141,7 @@ const signIn = ({ navigation }) => {
       />
       </View>
 
-        <CustomButton text="Sign in" onPress={handleSignIn} />
+        <CustomButton text="Sign in" onPress={isValidForm} />
         <CustomButton
           text="Forget Password?"
           type="Link"
