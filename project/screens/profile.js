@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import {
   StyleSheet,
@@ -10,7 +11,7 @@ import {
   Touchable,
   TouchableOpacity,
 } from 'react-native';
-import{
+import {
   Avatar,
   Title,
   caption,
@@ -51,14 +52,16 @@ if (docSnap.exists()) {
   const [phone,setPhone]=useState("");
   const [bearthDate,setBearthDate]=useState("");
   const [place,setPlace]=useState("");
+
+const profile = ({ navigation }) => {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-        console.log('Done');
-        navigation.navigate('Welcome');
+        console.log("Done");
+        navigation.navigate("Welcome");
       })
-      .catch(error => {
+      .catch((error) => {
         // An error happened.
       });
   };
@@ -102,6 +105,28 @@ if (docSnap.exists()) {
               marginBottom:5,
             }]}> user</Title>
             <Caption style={styles.caption}> {email}</Caption>
+  const handleEdit2 = () => {
+    navigation.navigate("EditProfileScreen");
+  };
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.userInfoSection}>
+        <View style={{ flexDirection: "row", marginTop: 15 }}>
+          <Avatar.Image source={img1} size={80} />
+          <View style={{ marginLeft: 20 }}>
+            <Title
+              style={[
+                styles.title,
+                {
+                  marginTop: 15,
+                  marginBottom: 5,
+                },
+              ]}
+            >
+              {" "}
+              user
+            </Title>
+            <Caption style={styles.caption}> {auth.currentUser.email}</Caption>
           </View>
         </View>
       </View>
@@ -124,10 +149,15 @@ if (docSnap.exists()) {
         </View>
       </View>
       <View style={styles.infoBoxWrapper}>
-        <View style={[styles.infoBox,{
-          borderRightColor:'#dddddd',
-          borderRightWidth:1,
-        }]}>
+        <View
+          style={[
+            styles.infoBox,
+            {
+              borderRightColor: "#dddddd",
+              borderRightWidth: 1,
+            },
+          ]}
+        >
           <Title>$120</Title>
           <Caption>wallet</Caption>
         </View>
@@ -282,79 +312,80 @@ if (docSnap.exists()) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#E6D4CA',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#E6D4CA",
+    justifyContent: "center",
     padding: 50,
+    // marginTop: 50,
   },
   img: {
     flex: 1,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     padding: 50,
   },
   title: {
     fontSize: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 10,
-    fontWeight:'bold',
+    fontWeight: "bold",
   },
   span: {
-    color: '#c2956e',
-    fontWeight: 'bold',
-    justifyContent: 'center',
+    color: "#c2956e",
+    fontWeight: "bold",
+    justifyContent: "center",
     padding: 5,
   },
   text: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
-    color: '#ffff',
+    color: "#ffff",
     marginLeft: 50,
   },
-  userInfoSection:{
+  userInfoSection: {
     paddingHorizontal: 30,
-    marginBottom:25,
+    marginBottom: 25,
   },
- caption:{
-   fontSize:14,
-   lineHeight:14,
-   fontWeight:'500',
+  caption: {
+    fontSize: 14,
+    lineHeight: 14,
+    fontWeight: "500",
   },
-  row:{
-   flexDirection:'row',
-   marginBottom:10,
+  row: {
+    flexDirection: "row",
+    marginBottom: 10,
   },
-  infoBoxWrapper:{
-    borderBottomColor:'#dddddd',
-    borderBottomWidth:1,
-    borderTopColor:'#dddddd',
-    borderTopWidth:1,
-    flexDirection:'row',
-    height:100,
+  infoBoxWrapper: {
+    borderBottomColor: "#dddddd",
+    borderBottomWidth: 1,
+    borderTopColor: "#dddddd",
+    borderTopWidth: 1,
+    flexDirection: "row",
+    height: 100,
   },
-  infoBox:{
-    width:'60%',
-    alignItems:'center',
-    justifyContent:'center',
+  infoBox: {
+    width: "60%",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  menuWrapper:{
-   marginTop:10,
+  menuWrapper: {
+    marginTop: 10,
   },
-  menuItem:{
-    flexDirection:'row',
-    paddingVertical:15,
-    paddingHorizontal:30,
+  menuItem: {
+    flexDirection: "row",
+    paddingVertical: 15,
+    paddingHorizontal: 30,
   },
-  menuItemText:{
-    color:'#777777',
-    marginLeft:20,
-    fontWeight:'600',
+  menuItemText: {
+    color: "#777777",
+    marginLeft: 20,
+    fontWeight: "600",
     fontSize: 16,
-    lineHeight:26,
+    lineHeight: 26,
   },
 });
 export default profile;
