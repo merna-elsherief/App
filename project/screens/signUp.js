@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { doc, setDoc } from "firebase/firestore"; 
 import {
   StyleSheet,
   View,
@@ -15,7 +14,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import img from '../assets/images/image3.jpg';
 import CustomButton from '../components/customButton';
 import CustomInput from '../components/customInput';
-import {auth,db} from '../firebase/fireBase';
+import auth from '../firebase/fireBase';
 
 
 const isValidObjectForm = (obj) => {
@@ -36,14 +35,11 @@ const isValidEmail = (value) =>{
 
 const signUp = ({ navigation }) => {
   const { height } = useWindowDimensions();
-  const [phone,setPhone]=useState("");
-  const [bearthDate,setBearthDate]=useState("");
-  
+
   const [userInfo, setUserInfo] = useState({
     fullName: '',
     email: '' ,
     password: '',
-    
   })
 
   const [error, setError] = useState('');
@@ -80,12 +76,11 @@ const signUp = ({ navigation }) => {
         console.log('Done');
         const user = userCredential.user;
         navigation.navigate('SignIn');
-        addUserDataBase();
-       
+
         // ...
       })
     
-      
+      then
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -94,15 +89,6 @@ const signUp = ({ navigation }) => {
       });
     
   };
-  const addUserDataBase=async()=>{
-    await setDoc(doc(db, "users", auth.currentUser.uid), {
-      name: fullName,
-      email:email,
-      phone:phone,
-      bearthDate:bearthDate,
-
-    });
-  }
 
   return (
     <View style={styles.container}>
@@ -137,20 +123,6 @@ const signUp = ({ navigation }) => {
         secureTextEntry={true}
       />
       </View>
-
-      <View >
-     <CustomInput  placeholder='bearthDate' 
-      value={bearthDate}
-      setValue={setBearthDate}/>
-     </View>
-     <View >
-     <CustomInput placeholder='phone' 
-      value={phone}
-      setValue={setPhone}/>
-     </View>
-     
-     
-     
       <CustomButton text='Sign up' onPress={isValidForm} />
     </View>
   );
