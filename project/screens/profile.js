@@ -132,6 +132,14 @@ const profile = ({ navigation }) => {
           </View>
         </TouchableRipple>
       </View>
+      <View>
+            <TouchableRipple onPress={handleSignOut}>
+          <View style={styles.menuItem}>
+            <Icon name="logout" color="#FF6347" size={25} />
+            <Text style={styles.menuItemText}> logout </Text>
+          </View>
+        </TouchableRipple>
+      </View>
     </SafeAreaView>
   );
 };
