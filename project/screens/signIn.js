@@ -80,7 +80,7 @@ const signIn = ({ navigation }) => {
         // Signed in
         const user = userCredential.user;
         console.log("Done");
-        navigation.navigate("Profile");
+        navigation.navigate("EditProfileScreen");
         // ...
       })
       .catch((error) => {

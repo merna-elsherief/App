@@ -154,7 +154,7 @@ getUser();
             <Text style={styles.menuItemText}> support </Text>
           </View>
         </TouchableRipple> */}
-        <TouchableRipple onPress={handleEditHere}>
+        <TouchableRipple onPress={handleEdit}>
           <View style={styles.menuItem}>
             <Icon name="account-settings-outline" color="#FF6347" size={25} />
             <Text style={styles.menuItemText}> Setting </Text>

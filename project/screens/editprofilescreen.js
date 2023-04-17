@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -24,13 +25,20 @@ import Icon2 from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 
-import {auth} from "../firebase/fireBase";
+import { auth, db } from "../firebase/fireBase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import CustomButton from "../components/customButton";
 import { signOut } from "firebase/auth";
 import img1 from "../assets/123.jpg";
 // import { fontConfig } from "react-native-paper/lib/typescript/src/styles/fonts";
 
 const editprofilescreen = ({ navigation }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [birthday, setBirthDay] = useState("");
+  const [viewMode, setViewMode] = useState(true);
   const { colors } = useTheme();
   const handleSignOut = () => {
     signOut(auth)
@@ -43,94 +51,238 @@ const editprofilescreen = ({ navigation }) => {
         // An error happened.
       });
   };
+  const handleSubmit = () => {
+    setViewMode(true);
+    handleUpdate();
+    // navigation.navigate("EditProfileScreen");
+  };
+  const handleUpdate = async () => {
+    const washingtonRef = doc(db, "usersData", auth.currentUser.uid);
+
+    // Set the "capital" field of the city 'DC'
+    await updateDoc(washingtonRef, {
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      birthday: birthday,
+    });
+  };
+  const getUser = async () => {
+    const docRef = doc(db, "usersData", auth.currentUser.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data());
+      const data = docSnap.data();
+      setEmail(data.email);
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      setPhone(data.phone);
+      setBirthDay(data.birthday);
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  };
+  const handleEdit = () => {
+    setViewMode(false);
+  };
+  {
+    viewMode ? getUser() : null;
+  }
   return (
     <View style={styles.container}>
-      <View style={{ margin: 20 }}>
-        <View style={{ alignItems: "center" }}>
-          <TouchableOpacity onPress={() => {}}>
-            <View
-              style={{
-                height: 100,
-                width: 100,
-                borderRadius: 15,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <ImageBackground
-                source={img1}
-                style={{ height: 100, width: 100 }}
-                imageStyle={{ borderRadius: 15 }}
+      {viewMode ? (
+        <View style={{ margin: 20 }}>
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity onPress={() => {}}>
+              <View
+                style={{
+                  height: 100,
+                  width: 100,
+                  borderRadius: 15,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flex: 1,
-                  }}
+                <ImageBackground
+                  source={img1}
+                  style={{ height: 100, width: 100 }}
+                  imageStyle={{ borderRadius: 15 }}
                 >
-                  <Icon1
-                    name="camera"
-                    size={35}
-                    color="#fff"
+                  <View
                     style={{
-                      opacity: 0.7,
-                      borderRadius: 10,
                       justifyContent: "center",
                       alignItems: "center",
-                      borderWidth: 1,
-                      borderColor: "#fff",
+                      flex: 1,
                     }}
-                  />
-                </View>
-              </ImageBackground>
-            </View>
+                  >
+                    <Icon1
+                      name="camera"
+                      size={35}
+                      color="#fff"
+                      style={{
+                        opacity: 0.7,
+                        borderRadius: 10,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        borderWidth: 1,
+                        borderColor: "#fff",
+                      }}
+                    />
+                  </View>
+                </ImageBackground>
+              </View>
+            </TouchableOpacity>
+            <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "bold" }}>
+              {email}
+            </Text>
+          </View>
+          <View style={styles.action}>
+            <FontAwesome name="user-o" color={colors.text} size={20} />
+            <Text
+              style={[styles.textInput, { color: colors.text }]}
+
+              // onChangeText={setFirstName}
+            >
+              {firstName}
+            </Text>
+          </View>
+          <View style={styles.action}>
+            <FontAwesome name="user-o" color={colors.text} size={20} />
+            <Text
+              style={[styles.textInput, { color: colors.text }]}
+
+              // onChangeText={setFirstName}
+            >
+              {lastName}
+            </Text>
+          </View>
+          <View style={styles.action}>
+            <Feather name="smartphone" color={colors.text} size={20} />
+            <Text
+              placeholderTextColor="#666666"
+              style={[styles.textInput, { color: colors.text }]} // onChangeText={setPhone}
+            >
+              {phone}
+            </Text>
+          </View>
+          <View style={styles.action}>
+            <Icon2 name="date-range" color={colors.text} size={20} />
+            <Text
+              placeholderTextColor="#666666"
+              style={[styles.textInput, { color: colors.text }]}
+              // onChangeText={setBirthDay}
+            >
+              {birthday}
+            </Text>
+          </View>
+          <TouchableOpacity onPress={handleEdit} style={styles.commandButton}>
+            <Text style={styles.panelButtonTitle}>Edit</Text>
           </TouchableOpacity>
-          <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "bold" }}>
-            MENNA
-          </Text>
+          <TouchableOpacity
+            onPress={handleSignOut}
+            style={styles.commandButton}
+          >
+            <Text style={styles.panelButtonTitle}>Log Out</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
-          <TextInput
-            placeholder="First Name"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[styles.textInput, { color: colors.text }]}
-          />
+      ) : (
+        <View style={{ margin: 20 }}>
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity onPress={() => {}}>
+              <View
+                style={{
+                  height: 100,
+                  width: 100,
+                  borderRadius: 15,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <ImageBackground
+                  source={img1}
+                  style={{ height: 100, width: 100 }}
+                  imageStyle={{ borderRadius: 15 }}
+                >
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flex: 1,
+                    }}
+                  >
+                    <Icon1
+                      name="camera"
+                      size={35}
+                      color="#fff"
+                      style={{
+                        opacity: 0.7,
+                        borderRadius: 10,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        borderWidth: 1,
+                        borderColor: "#fff",
+                      }}
+                    />
+                  </View>
+                </ImageBackground>
+              </View>
+            </TouchableOpacity>
+            <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "bold" }}>
+              {email}
+            </Text>
+          </View>
+          <View style={styles.action}>
+            <FontAwesome name="user-o" color={colors.text} size={20} />
+            <TextInput
+              placeholder="First Name"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              style={[styles.textInput, { color: colors.text }]}
+              value={firstName}
+              onChangeText={setFirstName}
+            />
+          </View>
+          <View style={styles.action}>
+            <FontAwesome name="user-o" color={colors.text} size={20} />
+            <TextInput
+              placeholder="Last Name"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              style={[styles.textInput, { color: colors.text }]}
+              value={lastName}
+              onChangeText={setLastName}
+            />
+          </View>
+          <View style={styles.action}>
+            <Feather name="smartphone" color={colors.text} size={20} />
+            <TextInput
+              placeholder="Phone Number"
+              keyboardType="number-pad"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              style={[styles.textInput, { color: colors.text }]}
+              value={phone}
+              onChangeText={setPhone}
+            />
+          </View>
+          <View style={styles.action}>
+            <Icon2 name="date-range" color={colors.text} size={20} />
+            <TextInput
+              placeholder="Birth Date"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              style={[styles.textInput, { color: colors.text }]}
+              value={birthday}
+              onChangeText={setBirthDay}
+            />
+          </View>
+          <TouchableOpacity onPress={handleSubmit} style={styles.commandButton}>
+            <Text style={styles.panelButtonTitle}>Submit</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Last Name"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[styles.textInput, { color: colors.text }]}
-          />
-        </View>
-        <View style={styles.action}>
-          <Feather name="smartphone" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Phone Number"
-            keyboardType="number-pad"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[styles.textInput, { color: colors.text }]}
-          />
-        </View>
-        <View style={styles.action}>
-          <Icon2 name="date-range" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Birth Date"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[styles.textInput, { color: colors.text }]}
-          />
-        </View>
-        <TouchableOpacity onPress={() => {}} style={styles.commandButton}>
-          <Text style={styles.panelButtonTitle}>Submit</Text>
-        </TouchableOpacity>
-      </View>
+      )}
     </View>
   );
 };
