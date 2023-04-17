@@ -117,7 +117,7 @@ const editprofilescreen = ({ navigation }) => {
                       flex: 1,
                     }}
                   >
-                    <Icon1
+                    {/* <Icon1
                       name="camera"
                       size={35}
                       color="#fff"
@@ -129,7 +129,7 @@ const editprofilescreen = ({ navigation }) => {
                         borderWidth: 1,
                         borderColor: "#fff",
                       }}
-                    />
+                    /> */}
                   </View>
                 </ImageBackground>
               </View>
