@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -7,6 +7,8 @@ import {
   ImageBackground,
   style,
   SafeAreaView,
+  Touchable,
+  TouchableOpacity,
 } from 'react-native';
 import{
   Avatar,
@@ -15,16 +17,40 @@ import{
   Text,
 TouchableRipple,
 Caption,
+TextInput,
 }from 'react-native-paper';
+
+import { doc, getDoc,updateDoc  } from "firebase/firestore";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import img from '../assets/images/image5.jpg';
 import img1 from '../assets/123.jpg';
-
-import auth from '../firebase/fireBase';
 import CustomButton from '../components/customButton';
 import { signOut } from 'firebase/auth';
+import {auth, db } from '../firebase/fireBase';
 
 const profile = () => {
+  const getUser=async()=>{
+    const docRef = doc(db, "users", auth.currentUser.uid);
+const docSnap = await getDoc(docRef);
+
+if (docSnap.exists()) {
+  console.log("Document data:", docSnap.data());
+  const data=docSnap.data();
+  setName(data.name);
+  setEmail(data.email);
+  setBearthDate(data.bearthDate);
+  setPhone(data.phone);
+} else {
+  // docSnap.data() will be undefined in this case
+  console.log("No such document!");
+}
+  }
+  const [viewMode,setViewMode]=useState(true);
+  const [name,setName]=useState("");
+  const [email,setEmail]=useState("");
+  const [phone,setPhone]=useState("");
+  const [bearthDate,setBearthDate]=useState("");
+  const [place,setPlace]=useState("");
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -36,10 +62,33 @@ const profile = () => {
         // An error happened.
       });
   };
+  const handleSave=()=>{
+    setViewMode(true);
+    updateUserData();
+  }
+  const handleEdit=()=>{
+    setViewMode(false);
+  }
+  const updateUserData = async()=>{
+    const washingtonRef = doc(db, "users", auth.currentUser.uid);
+
+    // Set the "capital" field of the city 'DC'
+    await updateDoc(washingtonRef, {
+      name:name,
+      phone:phone,
+      bearthDate:bearthDate,
+
+    });
+  }
+  {viewMode?getUser():null}
   return (
     <SafeAreaView style={styles.container}>
+       
+      
 
-      <View style ={styles.userInfoSection}> 
+     {
+      viewMode?(<View>
+          <View style ={styles.userInfoSection}> 
         <View style={{flexDirection:'row',marginTop:15}}>
           <Avatar.Image
           source={
@@ -48,30 +97,30 @@ const profile = () => {
           size={80}
           />
           <View style={{marginLeft:20}}>
-            <Title style={[styles.title,{
+             <Title style={[styles.title,{
               marginTop:15,
               marginBottom:5,
             }]}> user</Title>
-            <Caption style={styles.caption}> {auth.currentUser.email}</Caption>
+            <Caption style={styles.caption}> {email}</Caption>
           </View>
         </View>
       </View>
       <View style={styles.userInfoSection}>
         <View style={styles.row}>
          <Icon name = "map-marker-radius" color="#777777" size={20}/>
-          <Text style={{color:'#777777',marginLeft:20}} > Cairo,Egypt</Text>
+          <Text style={{color:'#777777',marginLeft:20}} > cairo,Egipt</Text>
         </View>
         <View style={styles.row}>
          <Icon name = "phone" color="#777777" size={20}/>
-          <Text style={{color:'#777777',marginLeft:20}} > 0114*******</Text>
+          <Text style={{color:'#777777',marginLeft:20}} >{phone}</Text>
         </View>
         <View style={styles.row}>
          <Icon name = "email" color="#777777" size={20}/>
-          <Text style={{color:'#777777',marginLeft:20}} >  {auth.currentUser.email}</Text>
+          <Text style={{color:'#777777',marginLeft:20}} >  {name}</Text>
         </View>
         <View style={styles.row}>
          <Icon name = "id-card" color="#777777" size={20}/>
-          <Text style={{color:'#777777',marginLeft:20}} > 21 </Text>
+          <Text style={{color:'#777777',marginLeft:20}} > {bearthDate} </Text>
         </View>
       </View>
       <View style={styles.infoBoxWrapper}>
@@ -112,17 +161,124 @@ const profile = () => {
           <Text style={styles.menuItemText}> support </Text>
         </View>
        </TouchableRipple>
-       {/* <TouchableRipple onPress={()=>{}}>
+          {/* <TouchableRipple onPress={()=>{}}>
         <View  style={styles.menuItem}>
           <Icon name='settings-outline' color='#FF6347' size={25}/>
           <Text style={styles.menuItemText}> Setting </Text>
         </View>
        </TouchableRipple> */}
-       
+      
+        <TouchableOpacity style={[{alignSelf:"auto" ,with:"10%",paddingTop:5}]}>
+           <Text style={styles.menuItemText} onPress={handleEdit}> Edit</Text>
+        </TouchableOpacity>
+     </View>
+      </View>):(<View>
+        <View style ={styles.userInfoSection}> 
+        <View style={{flexDirection:'row',marginTop:15}}>
+          <Avatar.Image
+          source={
+            img1
+          }
+          size={80}
+          />
+          <View style={{marginLeft:20}}>
+             <Title style={[styles.title,{
+              marginTop:15,
+              marginBottom:5,
+            }]}> user</Title>
+            <Caption style={styles.caption}> {email}</Caption>
+          </View>
+        </View>
       </View>
+      <View style={styles.userInfoSection}>
+        <View style={styles.row}>
+         <Icon name = "map-marker-radius" color="#777777" size={20}/>
+          <TextInput style={{color:'#777777',marginLeft:20}} 
+          value={place}
+            onChangeText={setPlace}
+            autoFocus
+           />
+        </View>
+        <View style={styles.row}>
+         <Icon name = "phone" color="#777777" size={20}/>
+          <TextInput style={{color:'#777777',marginLeft:20}} 
+          value={phone}
+          onChangeText={setPhone}
+          autoFocus/>
+        </View>
+        <View style={styles.row}>
+         <Icon name = "email" color="#777777" size={20}/>
+          <TextInput style={{color:'#777777',marginLeft:20}}
+           value={name}
+           onChangeText={setName}
+           autoFocus />  
+        </View>
+        <View style={styles.row}>
+         <Icon name = "id-card" color="#777777" size={20}/>
+          <TextInput style={{color:'#777777',marginLeft:20}} 
+            value={bearthDate}
+            onChangeText={setBearthDate}
+            autoFocus  /> 
+        </View>
+      </View>
+      <View style={styles.infoBoxWrapper}>
+        <View style={[styles.infoBox,{
+          borderRightColor:'#dddddd',
+          borderRightWidth:1,
+        }]}>
+          <Title>$120</Title>
+          <Caption>wallet</Caption>
+        </View>
+        <View style={styles.infoBox}>
+          <Title>12</Title>
+          <Caption>order</Caption>
+        </View>
+      </View>
+      <View style={styles.menuWrapper}>
+       <TouchableRipple onPress={()=>{}}>
+        <View  style={styles.menuItem}>
+          <Icon name='heart-outline' color='#FF6347' size={25}/>
+          <Text style={styles.menuItemText}> Favorites </Text>
+        </View>
+       </TouchableRipple>
+       <TouchableRipple onPress={()=>{}}>
+        <View  style={styles.menuItem}>
+          <Icon name='credit-card' color='#FF6347' size={25}/>
+          <Text style={styles.menuItemText}> Payment </Text>
+        </View>
+       </TouchableRipple>
+       <TouchableRipple onPress={()=>{}}>
+        <View  style={styles.menuItem}>
+          <Icon name='share-outline' color='#FF6347' size={25}/>
+          <Text style={styles.menuItemText}> Share </Text>
+        </View>
+       </TouchableRipple>
+       <TouchableRipple onPress={()=>{}}>
+        <View  style={styles.menuItem}>
+          <Icon name='account-check-outline' color='#FF6347' size={25}/>
+          <Text style={styles.menuItemText}> support </Text>
+        </View>
+       </TouchableRipple>
+          {/* <TouchableRipple onPress={()=>{}}>
+        <View  style={styles.menuItem}>
+          <Icon name='settings-outline' color='#FF6347' size={25}/>
+          <Text style={styles.menuItemText}> Setting </Text>
+        </View>
+       </TouchableRipple> */}
+      
+        <TouchableOpacity style={[{alignSelf:"auto" ,with:"10%",paddingTop:5}]}>
+           <Text style={styles.menuItemText} onPress={handleSave}> save</Text>
+        </TouchableOpacity>
+     </View>
+      </View>)
+      }
     </SafeAreaView>
+   
+
+      
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

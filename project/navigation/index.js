@@ -13,7 +13,8 @@ const index = () => {
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.root}>
-        <Stack.Navigator screenOptions={{ headerShown: true }}>
+        <Stack.Navigator screenOptions={{ headerShown: true }}
+          initialRouteName='SignIn'>
           <Stack.Screen name='Welcome' component={Welcome} />
           <Stack.Screen name='SignIn' component={SignIn} />
           <Stack.Screen name='SignUp' component={SignUp} />
