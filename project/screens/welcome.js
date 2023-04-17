@@ -8,12 +8,18 @@ import {
   style,
 } from 'react-native';
 import React from 'react';
-import img from '../assets/images/image1.jpg';
+import img from '../assets/images/image14.jpg';
 import CustomButton from '../components/customButton';
 const welcome = ({ navigation }) => {
   const { height } = useWindowDimensions();
   const handleGetStarted = () => {
+    navigation.navigate('Home');
+  };
+  const handleSignin = () => {
     navigation.navigate('SignIn');
+  };
+  const handleSignup = () => {
+    navigation.navigate('SignUp');
   };
   return (
     <View style={styles.container}>
@@ -26,6 +32,8 @@ const welcome = ({ navigation }) => {
           type='Default'
           onPress={handleGetStarted}
         />
+        <CustomButton text='Sign in' type='Default' onPress={handleSignin} />
+        <CustomButton text='Sign up' type='Default' onPress={handleSignup} />
       </ImageBackground>
     </View>
   );
@@ -62,6 +70,5 @@ const styles = StyleSheet.create({
     color: '#ffff',
     marginLeft: 50,
   },
-  
 });
 export default welcome;
