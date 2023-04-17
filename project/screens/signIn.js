@@ -13,7 +13,7 @@ import React from "react";
 import img from "../assets/images/image12.jpg";
 import CustomButton from "../components/customButton";
 import CustomInput from "../components/customInput";
-import auth from "../firebase/fireBase";
+import {auth} from "../firebase/fireBase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 

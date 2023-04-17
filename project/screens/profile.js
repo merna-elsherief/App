@@ -20,7 +20,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import img from "../assets/images/image5.jpg";
 import img1 from "../assets/123.jpg";
 
-import auth from "../firebase/fireBase";
+import {auth} from "../firebase/fireBase";
 import CustomButton from "../components/customButton";
 import { signOut } from "firebase/auth";
 

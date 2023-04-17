@@ -10,11 +10,12 @@ import {
   style,
 } from 'react-native';
 import React from 'react';
+import { doc, setDoc } from "firebase/firestore"; 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import img from '../assets/images/image3.jpg';
 import CustomButton from '../components/customButton';
 import CustomInput from '../components/customInput';
-import auth from '../firebase/fireBase';
+import {auth,db} from '../firebase/fireBase';
 
 
 const isValidObjectForm = (obj) => {
@@ -37,14 +38,18 @@ const signUp = ({ navigation }) => {
   const { height } = useWindowDimensions();
 
   const [userInfo, setUserInfo] = useState({
-    fullName: '',
+    firstName: '',
+    lastName:'',
     email: '' ,
     password: '',
+    birthday:'',
+    phone:'',
+
   })
 
   const [error, setError] = useState('');
 
-  const {fullName, email, password } = userInfo;
+  const {firstName, lastName,email, password,birthday,phone } = userInfo;
 
   const handleOnChangeText = (value, fieldName) =>{
     setUserInfo({...userInfo, [fieldName]: value});
@@ -54,7 +59,7 @@ const signUp = ({ navigation }) => {
     // we will accept only if all fields have value
     if(!isValidObjectForm(userInfo)) return updateError('Required all fields!', setError);
     // valid name must be 3 or more characters
-    if(!fullName.trim() || fullName.length < 3)
+    if(!firstName.trim() || firstName.length < 3)
     return updateError('Invalid name!', setError);
     // only valid email id is allowed
     if(!isValidEmail(email)) return updateError('Invalid email!', setError);
@@ -78,6 +83,7 @@ const signUp = ({ navigation }) => {
         navigation.navigate('SignIn');
 
         // ...
+        addUserToDataBase();
       })
     
       then
@@ -89,6 +95,16 @@ const signUp = ({ navigation }) => {
       });
     
   };
+  const addUserToDataBase=async()=>{
+    await setDoc(doc(db, "usersData", auth.currentUser.uid), {
+      firstName:firstName,
+      lastName:lastName,
+      phone:phone,
+      birthday:birthday,
+      email:email,
+      photo:'',
+    });
+  }
 
   return (
     <View style={styles.container}>
@@ -100,10 +116,19 @@ const signUp = ({ navigation }) => {
       <View style={styles.textInput}>
       <TextInput 
         style={styles.input}
-        placeholder='Full Name' 
-        label='Full Name'
-        value={fullName} 
-        onChangeText={value => handleOnChangeText(value,'fullName')}
+        placeholder='First Name' 
+        label='First Name'
+        value={firstName} 
+        onChangeText={value => handleOnChangeText(value,'firstName')}
+        />
+      </View>
+      <View style={styles.textInput}>
+      <TextInput 
+        style={styles.input}
+        placeholder='Last Name' 
+        label='Last Name'
+        value={lastName} 
+        onChangeText={value => handleOnChangeText(value,'lastName')}
         />
       </View>
       <View style={styles.textInput}>
@@ -122,6 +147,22 @@ const signUp = ({ navigation }) => {
         onChangeText={value => handleOnChangeText(value,'password')}
         secureTextEntry={true}
       />
+      </View>
+      <View style={styles.textInput}>
+      <TextInput 
+        style={styles.input}
+        placeholder='Phone' 
+        value={phone} 
+        onChangeText={value => handleOnChangeText(value,'phone')}
+        />
+      </View>
+      <View style={styles.textInput}>
+      <TextInput 
+        style={styles.input}
+        placeholder='BirthDay' 
+        value={birthday} 
+        onChangeText={value => handleOnChangeText(value,'birthday')}
+        />
       </View>
       <CustomButton text='Sign up' onPress={isValidForm} />
     </View>

@@ -24,7 +24,7 @@ import Icon2 from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 
-import auth from "../firebase/fireBase";
+import {auth} from "../firebase/fireBase";
 import CustomButton from "../components/customButton";
 import { signOut } from "firebase/auth";
 import img1 from "../assets/123.jpg";
