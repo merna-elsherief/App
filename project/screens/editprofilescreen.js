@@ -30,7 +30,7 @@ import { signOut } from "firebase/auth";
 import img1 from "../assets/123.jpg";
 // import { fontConfig } from "react-native-paper/lib/typescript/src/styles/fonts";
 
-const editprofilescreen = () => {
+const editprofilescreen = ({ navigation }) => {
   const { colors } = useTheme();
   const handleSignOut = () => {
     signOut(auth)
@@ -86,7 +86,7 @@ const editprofilescreen = () => {
               </ImageBackground>
             </View>
           </TouchableOpacity>
-          <Text style={{ marginRight: 10, fontSize: 18, fontSize: "bold" }}>
+          <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "bold" }}>
             MENNA
           </Text>
         </View>
