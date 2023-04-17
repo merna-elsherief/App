@@ -13,7 +13,7 @@ import img from '../assets/images/image10.jpg';
 import CustomButton from '../components/customButton';
 import CustomInput from '../components/customInput';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import auth from '../firebase/fireBase';
+import {auth} from '../firebase/fireBase';
 const forgetPassword = ({ navigation }) => {
   const { height } = useWindowDimensions();
   const [email, setEmail] = useState('');
