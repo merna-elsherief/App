@@ -17,8 +17,10 @@ import {
   TouchableRipple,
   Caption,
   TextInput,
+  useTheme,
 } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon2 from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 
@@ -26,9 +28,10 @@ import auth from "../firebase/fireBase";
 import CustomButton from "../components/customButton";
 import { signOut } from "firebase/auth";
 import img1 from "../assets/123.jpg";
-import { fontConfig } from "react-native-paper/lib/typescript/src/styles/fonts";
+// import { fontConfig } from "react-native-paper/lib/typescript/src/styles/fonts";
 
 const editprofilescreen = () => {
+  const { colors } = useTheme();
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -66,7 +69,7 @@ const editprofilescreen = () => {
                     flex: 1,
                   }}
                 >
-                  <Icon
+                  <Icon1
                     name="camera"
                     size={35}
                     color="#fff"
@@ -88,8 +91,45 @@ const editprofilescreen = () => {
           </Text>
         </View>
         <View style={styles.action}>
-            <TextInput/>
+          <FontAwesome name="user-o" color={colors.text} size={20} />
+          <TextInput
+            placeholder="First Name"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={[styles.textInput, { color: colors.text }]}
+          />
         </View>
+        <View style={styles.action}>
+          <FontAwesome name="user-o" color={colors.text} size={20} />
+          <TextInput
+            placeholder="Last Name"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={[styles.textInput, { color: colors.text }]}
+          />
+        </View>
+        <View style={styles.action}>
+          <Feather name="smartphone" color={colors.text} size={20} />
+          <TextInput
+            placeholder="Phone Number"
+            keyboardType="number-pad"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={[styles.textInput, { color: colors.text }]}
+          />
+        </View>
+        <View style={styles.action}>
+          <Icon2 name="date-range" color={colors.text} size={20} />
+          <TextInput
+            placeholder="Birth Date"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={[styles.textInput, { color: colors.text }]}
+          />
+        </View>
+        <TouchableOpacity onPress={() => {}} style={styles.commandButton}>
+          <Text style={styles.panelButtonTitle}>Submit</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
