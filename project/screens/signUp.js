@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -8,205 +8,199 @@ import {
   useWindowDimensions,
   ImageBackground,
   style,
-} from 'react-native';
-import React from 'react';
-import { doc, setDoc } from "firebase/firestore"; 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import img from '../assets/images/image3.jpg';
-import CustomButton from '../components/customButton';
-import CustomInput from '../components/customInput';
-import {auth,db} from '../firebase/fireBase';
-
+} from "react-native";
+import React from "react";
+import { doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import img from "../assets/images/image3.jpg";
+import CustomButton from "../components/customButton";
+import CustomInput from "../components/customInput";
+import { auth, db } from "../firebase/fireBase";
 
 const isValidObjectForm = (obj) => {
-  return Object.values(obj).every(value => value.trim())
-}
+  return Object.values(obj).every((value) => value.trim());
+};
 
 const updateError = (error, stateUpdater) => {
   stateUpdater(error);
   setTimeout(() => {
-    stateUpdater('')
+    stateUpdater("");
   }, 2500);
-}
+};
 
-const isValidEmail = (value) =>{
+const isValidEmail = (value) => {
   const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-  return regx.test(value)
-}
+  return regx.test(value);
+};
 
 const signUp = ({ navigation }) => {
   const { height } = useWindowDimensions();
 
   const [userInfo, setUserInfo] = useState({
-    firstName: '',
-    lastName:'',
-    email: '' ,
-    password: '',
-    birthday:'',
-    phone:'',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    birthday: "",
+    phone: "",
+  });
 
-  })
+  const [error, setError] = useState("");
 
-  const [error, setError] = useState('');
+  const { firstName, lastName, email, password, birthday, phone } = userInfo;
 
-  const {firstName, lastName,email, password,birthday,phone } = userInfo;
-
-  const handleOnChangeText = (value, fieldName) =>{
-    setUserInfo({...userInfo, [fieldName]: value});
+  const handleOnChangeText = (value, fieldName) => {
+    setUserInfo({ ...userInfo, [fieldName]: value });
   };
 
-  const isValidForm = () =>{
+  const isValidForm = () => {
     // we will accept only if all fields have value
-    if(!isValidObjectForm(userInfo)) return updateError('Required all fields!', setError);
+    if (!isValidObjectForm(userInfo))
+      return updateError("Required all fields!", setError);
     // valid name must be 3 or more characters
-    if(!firstName.trim() || firstName.length < 3)
-    return updateError('Invalid name!', setError);
+    if (!firstName.trim() || firstName.length < 3)
+      return updateError("Invalid name!", setError);
     // only valid email id is allowed
-    if(!isValidEmail(email)) return updateError('Invalid email!', setError);
+    if (!isValidEmail(email)) return updateError("Invalid email!", setError);
     //password must have 8 or more characters
-    if(!password.trim() || password.length < 8) 
-    return updateError('Password is less than 8 characters!', setError);
-    else
-      handleSignUp();
-    
-    return true;
-  }
+    if (!password.trim() || password.length < 8)
+      return updateError("Password is less than 8 characters!", setError);
+    else handleSignUp();
 
+    return true;
+  };
 
   const handleSignUp = () => {
-      
     createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
+      .then((userCredential) => {
         // Signed in
-        console.log('Done');
+        console.log("Done");
         const user = userCredential.user;
-        navigation.navigate('SignIn');
+        navigation.navigate("SignIn");
 
         // ...
         addUserToDataBase();
       })
-    
-      then
-      .catch(error => {
+
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
         // ..
       });
-    
   };
-  const addUserToDataBase=async()=>{
+  const addUserToDataBase = async () => {
     await setDoc(doc(db, "usersData", auth.currentUser.uid), {
-      firstName:firstName,
-      lastName:lastName,
-      phone:phone,
-      birthday:birthday,
-      email:email,
-      photo:'',
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      birthday: birthday,
+      email: email,
+      photo: "",
     });
-  }
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create An Account</Text>
-      {error ? 
-      <Text style={{color: 'red', fontSize:20 ,textAlign: 'center'}}> 
-        {error} 
-      </Text>: null}
+      {error ? (
+        <Text style={{ color: "red", fontSize: 20, textAlign: "center" }}>
+          {error}
+        </Text>
+      ) : null}
       <View style={styles.textInput}>
-      <TextInput 
-        style={styles.input}
-        placeholder='First Name' 
-        label='First Name'
-        value={firstName} 
-        onChangeText={value => handleOnChangeText(value,'firstName')}
+        <TextInput
+          style={styles.input}
+          placeholder="First Name"
+          label="First Name"
+          value={firstName}
+          onChangeText={(value) => handleOnChangeText(value, "firstName")}
         />
       </View>
       <View style={styles.textInput}>
-      <TextInput 
-        style={styles.input}
-        placeholder='Last Name' 
-        label='Last Name'
-        value={lastName} 
-        onChangeText={value => handleOnChangeText(value,'lastName')}
+        <TextInput
+          style={styles.input}
+          placeholder="Last Name"
+          label="Last Name"
+          value={lastName}
+          onChangeText={(value) => handleOnChangeText(value, "lastName")}
         />
       </View>
       <View style={styles.textInput}>
-      <TextInput 
-        style={styles.input}
-        placeholder='Email' 
-        value={email} 
-        onChangeText={value => handleOnChangeText(value,'email')}
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={(value) => handleOnChangeText(value, "email")}
         />
       </View>
       <View style={styles.textInput}>
-      <TextInput
-        style={styles.input}
-        placeholder='Password'
-        value={password}
-        onChangeText={value => handleOnChangeText(value,'password')}
-        secureTextEntry={true}
-      />
-      </View>
-      <View style={styles.textInput}>
-      <TextInput 
-        style={styles.input}
-        placeholder='Phone' 
-        value={phone} 
-        onChangeText={value => handleOnChangeText(value,'phone')}
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={(value) => handleOnChangeText(value, "password")}
+          secureTextEntry={true}
         />
       </View>
       <View style={styles.textInput}>
-      <TextInput 
-        style={styles.input}
-        placeholder='BirthDay' 
-        value={birthday} 
-        onChangeText={value => handleOnChangeText(value,'birthday')}
+        <TextInput
+          style={styles.input}
+          placeholder="Phone"
+          value={phone}
+          onChangeText={(value) => handleOnChangeText(value, "phone")}
         />
       </View>
-      <CustomButton text='Sign up' onPress={isValidForm} />
+      <View style={styles.textInput}>
+        <TextInput
+          style={styles.input}
+          placeholder="BirthDay"
+          value={birthday}
+          onChangeText={(value) => handleOnChangeText(value, "birthday")}
+        />
+      </View>
+      <CustomButton text="Sign up" onPress={isValidForm} />
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 20,
   },
   img: {
     flex: 0.7,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
     marginBottom: 20,
   },
   title: {
     fontSize: 50,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginRight: 10,
   },
 
   text: {
     fontSize: 20,
-    color: '#ffff',
+    color: "#ffff",
     marginLeft: 50,
   },
-  textInput:{
-    backgroundColor: '#ffff',
-    width: '100%',
+  textInput: {
+    backgroundColor: "#ffff",
+    width: "100%",
     height: 50,
     marginVertical: 10,
     paddingHorizontal: 10,
-    borderColor: 'white',
+    borderColor: "white",
     borderWidth: 2,
     borderRadius: 999,
   },
-  
+
   input: {
-    height: '100%',
+    height: "100%",
     fontSize: 20,
   },
 });
 export default signUp;
-
