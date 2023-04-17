@@ -8,12 +8,12 @@ import {
   style,
 } from 'react-native';
 import React from 'react';
-import img from '../assets/images/image1.jpg';
+import img from '../assets/images/image14.jpg';
 import CustomButton from '../components/customButton';
 const welcome = ({ navigation }) => {
   const { height } = useWindowDimensions();
   const handleGetStarted = () => {
-    navigation.navigate('SignIn');
+    navigation.navigate('Home');
   };
   return (
     <View style={styles.container}>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   span: {
-    color: '#ffff',
+    color: 'white',
     fontWeight: 'bold',
     justifyContent: 'center',
     padding: 5,
@@ -62,6 +62,5 @@ const styles = StyleSheet.create({
     color: '#ffff',
     marginLeft: 50,
   },
-  
 });
 export default welcome;

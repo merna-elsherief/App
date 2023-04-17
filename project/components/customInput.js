@@ -22,12 +22,12 @@ const customInput = ({ placeholder, value, setValue, secureTextEntry }) => {
 };
 const styles = StyleSheet.create({
   container: {
-   backgroundColor: '#ffff',
+    backgroundColor: 'rgba(0,0,0,0)',
     width: '100%',
     height: 50,
     marginVertical: 10,
     paddingHorizontal: 10,
-    borderColor: 'white',
+    borderColor: 'rgba(0,0,0,0)',
     borderWidth: 2,
     borderRadius: 999,
   },
