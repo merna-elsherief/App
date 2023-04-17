@@ -16,6 +16,7 @@ import img from "../assets/images/image3.jpg";
 import CustomButton from "../components/customButton";
 import CustomInput from "../components/customInput";
 import { auth, db } from "../firebase/fireBase";
+import validator from 'validator';
 
 const isValidObjectForm = (obj) => {
   return Object.values(obj).every((value) => value.trim());
@@ -30,6 +31,11 @@ const updateError = (error, stateUpdater) => {
 
 const isValidEmail = (value) => {
   const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  return regx.test(value);
+};
+
+const isValidPhoneNumber = (value) => {
+  const regx = /^[0-9\b]+$/;
   return regx.test(value);
 };
 
@@ -54,18 +60,29 @@ const signUp = ({ navigation }) => {
   };
 
   const isValidForm = () => {
+    let isValid = true ;
     // we will accept only if all fields have value
     if (!isValidObjectForm(userInfo))
       return updateError("Required all fields!", setError);
-    // valid name must be 3 or more characters
+    // valid first name must be 3 or more characters
     if (!firstName.trim() || firstName.length < 3)
-      return updateError("Invalid name!", setError);
+      return updateError("Invalid first name!", setError);
+    // valid last name must be 3 or more characters
+     if (!lastName.trim() || lastName.length < 3)
+     return updateError("Invalid last name!", setError);
     // only valid email id is allowed
     if (!isValidEmail(email)) return updateError("Invalid email!", setError);
     //password must have 8 or more characters
     if (!password.trim() || password.length < 8)
       return updateError("Password is less than 8 characters!", setError);
-    else handleSignUp();
+    //phone number must be 11 numbers
+    if (!isValidPhoneNumber(phone) || phone.length != 11)
+      return updateError("Phone must contain 11 numbers !", setError);
+    // BirthDate 
+    if (!validator.isDate(birthday)) 
+    return updateError("BirthDate must be as 2000/01/01 !", setError);
+    
+      else handleSignUp();
 
     return true;
   };
