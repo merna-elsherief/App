@@ -15,6 +15,12 @@ const welcome = ({ navigation }) => {
   const handleGetStarted = () => {
     navigation.navigate('Home');
   };
+  const handleSignin = () => {
+    navigation.navigate('SignIn');
+  };
+  const handleSignup = () => {
+    navigation.navigate('SignUp');
+  };
   return (
     <View style={styles.container}>
       <ImageBackground source={img} resizeMode='cover' style={styles.img}>
@@ -26,6 +32,8 @@ const welcome = ({ navigation }) => {
           type='Default'
           onPress={handleGetStarted}
         />
+        <CustomButton text='Sign in' type='Default' onPress={handleSignin} />
+        <CustomButton text='Sign up' type='Default' onPress={handleSignup} />
       </ImageBackground>
     </View>
   );
