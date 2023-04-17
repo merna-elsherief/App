@@ -29,7 +29,7 @@ import { auth, db } from "../firebase/fireBase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import CustomButton from "../components/customButton";
 import { signOut } from "firebase/auth";
-import img1 from "../assets/123.jpg";
+import img1 from "../assets/avatar.jpg";
 // import { fontConfig } from "react-native-paper/lib/typescript/src/styles/fonts";
 
 const editprofilescreen = ({ navigation }) => {
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
   commandButton: {
     padding: 15,
     borderRadius: 10,
-    backgroundColor: "#FF6347",
+    backgroundColor: "#24a0ed",
     alignItems: "center",
     marginTop: 10,
   },
