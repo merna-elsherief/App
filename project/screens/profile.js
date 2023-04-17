@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -20,11 +21,18 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import img from "../assets/images/image5.jpg";
 import img1 from "../assets/123.jpg";
 
-import {auth} from "../firebase/fireBase";
+import { auth, db } from "../firebase/fireBase";
+import { doc, getDoc } from "firebase/firestore";
 import CustomButton from "../components/customButton";
 import { signOut } from "firebase/auth";
 
 const profile = ({ navigation }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [birthday, setBirthDay] = useState("");
+  const [viewMode, setViewMode] = useState(true);
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -39,6 +47,30 @@ const profile = ({ navigation }) => {
   const handleEdit = () => {
     navigation.navigate("EditProfileScreen");
   };
+  const handleSave = () => {
+    setViewMode(true);
+  };
+  const handleEditHere = () => {
+    setViewMode(false);
+  };
+  const getUser = async () => {
+    const docRef = doc(db, "usersData", auth.currentUser.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data());
+      const data = docSnap.data();
+      setEmail(data.email);
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      setPhone(data.phone);
+      setBirthDay(data.birthday);
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  };
+getUser();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.userInfoSection}>
@@ -55,31 +87,28 @@ const profile = ({ navigation }) => {
               ]}
             >
               {" "}
-              user
+              {firstName} {lastName} 
             </Title>
-            <Caption style={styles.caption}> {auth.currentUser.email}</Caption>
+            <Caption style={styles.caption}> {email}</Caption>
           </View>
         </View>
       </View>
       <View style={styles.userInfoSection}>
-        <View style={styles.row}>
+        {/* <View style={styles.row}>
           <Icon name="map-marker-radius" color="#777777" size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}> Cairo,Egypt</Text>
-        </View>
+        </View> */}
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20} />
-          <Text style={{ color: "#777777", marginLeft: 20 }}> 0114*******</Text>
+          <Text style={{ color: "#777777", marginLeft: 20 }}> {phone}</Text>
         </View>
         <View style={styles.row}>
           <Icon name="email" color="#777777" size={20} />
-          <Text style={{ color: "#777777", marginLeft: 20 }}>
-            {" "}
-            {auth.currentUser.email}
-          </Text>
+          <Text style={{ color: "#777777", marginLeft: 20 }}> {email}</Text>
         </View>
         <View style={styles.row}>
           <Icon name="id-card" color="#777777" size={20} />
-          <Text style={{ color: "#777777", marginLeft: 20 }}> 21 </Text>
+          <Text style={{ color: "#777777", marginLeft: 20 }}> {birthday} </Text>
         </View>
       </View>
       <View style={styles.infoBoxWrapper}>
@@ -125,7 +154,7 @@ const profile = ({ navigation }) => {
             <Text style={styles.menuItemText}> support </Text>
           </View>
         </TouchableRipple> */}
-        <TouchableRipple onPress={handleEdit}>
+        <TouchableRipple onPress={handleEditHere}>
           <View style={styles.menuItem}>
             <Icon name="account-settings-outline" color="#FF6347" size={25} />
             <Text style={styles.menuItemText}> Setting </Text>
