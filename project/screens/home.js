@@ -41,7 +41,7 @@ const home = ({ navigation }) => {
                 {
                   backgroundColor:
                     selectedcategoryIndex == index
-                      ? '#e5d1b8'
+                      ? '#F8C304'
                       : 'rgbs(0,0,0,0)',
                 },
               ]}
@@ -50,7 +50,7 @@ const home = ({ navigation }) => {
                 style={[
                   styles.categorytext,
                   {
-                    color: selectedcategoryIndex == index ? 'white' : '#2b2129',
+                    color: selectedcategoryIndex == index ? 'white' : '#340763',
                   },
                 ]}
               >
@@ -119,7 +119,11 @@ const home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Icon name='sort-variant' size={28}></Icon>
+        <Icon
+          name='account'
+          size={28}
+          onPress={() => navigation.navigate('EditProfileScreen')}
+        ></Icon>
         <Icon name='cart-outline' size={28}></Icon>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -174,7 +178,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    color: '#2b2129',
+    color: '#340763',
   },
   img: {
     flex: 1,
@@ -188,7 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     paddingHorizontal: 20,
-    color: '#2b2129',
+    color: '#340763',
   },
 
   text: {
@@ -197,11 +201,11 @@ const styles = StyleSheet.create({
     weight: '55%',
     lineHeight: 30,
     paddingHorizontal: 20,
-    color: '#2b2129',
+    color: '#340763',
   },
   searchcontainer: {
     height: 50,
-    backgroundColor: '#f7f7f7',
+    backgroundColor: '#ffff',
     flex: 1,
     borderRadius: 12,
     flexDirection: 'row',
@@ -209,7 +213,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   sortBtn: {
-    backgroundColor: '#2b2129',
+    backgroundColor: '#6C117B',
     height: 50,
     width: 50,
     borderRadius: 12,

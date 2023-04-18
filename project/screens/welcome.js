@@ -8,13 +8,10 @@ import {
   style,
 } from 'react-native';
 import React from 'react';
-import img from '../assets/images/image14.jpg';
+import img from '../assets/images/welcome.png';
 import CustomButton from '../components/customButton';
 const welcome = ({ navigation }) => {
   const { height } = useWindowDimensions();
-  const handleGetStarted = () => {
-    navigation.navigate('Home');
-  };
   const handleSignin = () => {
     navigation.navigate('SignIn');
   };
@@ -23,18 +20,10 @@ const welcome = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <ImageBackground source={img} resizeMode='cover' style={styles.img}>
-        <Text style={styles.title}>
-          <Text style={styles.span}> welcome</Text>
-        </Text>
-        <CustomButton
-          text='Get Started'
-          type='Default'
-          onPress={handleGetStarted}
-        />
-        <CustomButton text='Sign in' type='Default' onPress={handleSignin} />
-        <CustomButton text='Sign up' type='Default' onPress={handleSignup} />
-      </ImageBackground>
+      <Text style={styles.text}>Welcome</Text>
+      <Image source={img} resizeMode='contain' style={styles.img}></Image>
+      <CustomButton text='Sign up' type='Default' onPress={handleSignup} />
+      <CustomButton text='Sign in' type='Default' onPress={handleSignin} />
     </View>
   );
 };
@@ -43,7 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffff',
+    backgroundColor: '#0182B0',
   },
   img: {
     flex: 1,
@@ -58,17 +47,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 10,
   },
-  span: {
-    color: '#ffff',
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    padding: 5,
-  },
+
   text: {
     fontWeight: 'bold',
-    fontSize: 20,
-    color: '#ffff',
-    marginLeft: 50,
+    fontSize: 40,
+    color: '#F8C304',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
   },
 });
 export default welcome;
