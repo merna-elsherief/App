@@ -8,14 +8,14 @@ import {
   useWindowDimensions,
   ImageBackground,
   style,
-} from 'react-native';
-import React from 'react';
-import { doc, setDoc } from 'firebase/firestore';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import img from '../assets/images/image3.jpg';
-import CustomButton from '../components/customButton';
-import CustomInput from '../components/customInput';
-import { auth, db } from '../firebase/fireBase';
+} from "react-native";
+import React from "react";
+import { doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import img from "../assets/images/image3.jpg";
+import CustomButton from "../components/customButton";
+import CustomInput from "../components/customInput";
+import { auth, db } from "../firebase/fireBase";
 
 const isValidObjectForm = obj => {
   return Object.values(obj).every(value => value.trim());
@@ -30,6 +30,11 @@ const updateError = (error, stateUpdater) => {
 
 const isValidEmail = value => {
   const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  return regx.test(value);
+};
+
+const isValidPhoneNumber = (value) => {
+  const regx = /^[0-9\b]+$/;
   return regx.test(value);
 };
 
@@ -54,17 +59,18 @@ const signUp = ({ navigation }) => {
   };
 
   const isValidForm = () => {
+    let isValid = true ;
     // we will accept only if all fields have value
     if (!isValidObjectForm(userInfo))
-      return updateError('Required all fields!', setError);
+      return updateError("Required all fields!", setError);
     // valid name must be 3 or more characters
     if (!firstName.trim() || firstName.length < 3)
-      return updateError('Invalid name!', setError);
+      return updateError("Invalid name!", setError);
     // only valid email id is allowed
     if (!isValidEmail(email)) return updateError('Invalid email!', setError);
     //password must have 8 or more characters
     if (!password.trim() || password.length < 8)
-      return updateError('Password is less than 8 characters!', setError);
+      return updateError("Password is less than 8 characters!", setError);
     else handleSignUp();
 
     return true;
