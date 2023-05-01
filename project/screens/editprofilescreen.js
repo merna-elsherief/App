@@ -38,6 +38,7 @@ const editprofilescreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [birthday, setBirthDay] = useState("");
+  const [photo, setPhoto] = useState("");
   const [viewMode, setViewMode] = useState(true);
   const { colors } = useTheme();
   const handleSignOut = () => {
@@ -79,6 +80,7 @@ const editprofilescreen = ({ navigation }) => {
       setLastName(data.lastName);
       setPhone(data.phone);
       setBirthDay(data.birthday);
+      setPhoto(data.photo);
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
@@ -106,7 +108,7 @@ const editprofilescreen = ({ navigation }) => {
                 }}
               >
                 <ImageBackground
-                  source={img1}
+                  source={photo===""?img1:photo}
                   style={{ height: 100, width: 100 }}
                   imageStyle={{ borderRadius: 15 }}
                 >
