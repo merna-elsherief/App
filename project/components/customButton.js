@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#c2956e',
-    marginTop: 15,
+    marginTop: 5,
     borderRadius: 25,
 
     // backgroundColor: "#fff",
@@ -47,13 +47,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   containerDefault: {
-    width: '90%',
+    width: '50%',
     backgroundColor: '#c2956e',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 40,
+    marginTop: 30,
     marginBottom: 10,
   },
 
