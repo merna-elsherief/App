@@ -25,11 +25,11 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
-import { auth, db } from '../firebase/fireBase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import CustomButton from '../components/customButton';
-import { signOut } from 'firebase/auth';
-import img1 from '../assets/123.jpg';
+import { auth, db } from "../firebase/fireBase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import CustomButton from "../components/customButton";
+import { signOut } from "firebase/auth";
+import img1 from "../assets/123.jpg";
 // import { fontConfig } from "react-native-paper/lib/typescript/src/styles/fonts";
 
 const editprofilescreen = ({ navigation }) => {
@@ -118,7 +118,7 @@ const editprofilescreen = ({ navigation }) => {
                     }}
                   >
                     <Icon1
-                      name='camera'
+                      name="camera"
                       size={35}
                       color='#fff'
                       style={{
@@ -129,8 +129,7 @@ const editprofilescreen = ({ navigation }) => {
                         borderWidth: 1,
                         borderColor: '#fff',
                       }}
-                    />{' '}
-                    */
+                    /> */}
                   </View>
                 </ImageBackground>
               </View>
@@ -294,8 +293,8 @@ const styles = StyleSheet.create({
   commandButton: {
     padding: 15,
     borderRadius: 10,
-    backgroundColor: '#FF6347',
-    alignItems: 'center',
+    backgroundColor: "#FF6347",
+    alignItems: "center",
     marginTop: 10,
   },
   panel: {
