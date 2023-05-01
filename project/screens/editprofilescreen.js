@@ -30,6 +30,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import CustomButton from "../components/customButton";
 import { signOut } from "firebase/auth";
 import img1 from "../assets/avatar.jpg";
+import * as ImagePicker from "expo-image-picker";
 // import { fontConfig } from "react-native-paper/lib/typescript/src/styles/fonts";
 
 const editprofilescreen = ({ navigation }) => {
@@ -38,7 +39,7 @@ const editprofilescreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [birthday, setBirthDay] = useState("");
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState(null);
   const [viewMode, setViewMode] = useState(true);
   const { colors } = useTheme();
   const handleSignOut = () => {
@@ -51,6 +52,22 @@ const editprofilescreen = ({ navigation }) => {
       .catch((error) => {
         // An error happened.
       });
+  };
+  const handleChoosePhoto = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Sorry, we need camera roll permissions to make this work!");
+      return;
+    }
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.canceled) {
+      setPhoto(result.uri);
+    }
   };
   const handleSubmit = () => {
     setViewMode(true);
@@ -66,6 +83,7 @@ const editprofilescreen = ({ navigation }) => {
       lastName: lastName,
       phone: phone,
       birthday: birthday,
+      photo: photo,
     });
   };
   const getUser = async () => {
@@ -79,6 +97,7 @@ const editprofilescreen = ({ navigation }) => {
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setPhone(data.phone);
+      setPhoto(data.photo);
       setBirthDay(data.birthday);
       setPhoto(data.photo);
     } else {
@@ -108,7 +127,7 @@ const editprofilescreen = ({ navigation }) => {
                 }}
               >
                 <ImageBackground
-                  source={photo===""?img1:photo}
+                  source={photo === "" ? img1 : photo}
                   style={{ height: 100, width: 100 }}
                   imageStyle={{ borderRadius: 15 }}
                 >
@@ -192,7 +211,7 @@ const editprofilescreen = ({ navigation }) => {
       ) : (
         <View style={{ margin: 20 }}>
           <View style={{ alignItems: "center" }}>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={handleChoosePhoto}>
               <View
                 style={{
                   height: 100,
@@ -202,33 +221,37 @@ const editprofilescreen = ({ navigation }) => {
                   alignItems: "center",
                 }}
               >
-                <ImageBackground
-                  source={img1}
-                  style={{ height: 100, width: 100 }}
-                  imageStyle={{ borderRadius: 15 }}
-                >
-                  <View
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flex: 1,
-                    }}
+                {photo ? (
+                  <Image source={{ uri: photo }} style={styles.photo} />
+                ) : (
+                  <ImageBackground
+                    source={img1}
+                    style={{ height: 100, width: 100 }}
+                    imageStyle={{ borderRadius: 15 }}
                   >
-                    <Icon1
-                      name="camera"
-                      size={35}
-                      color="#fff"
+                    <View
                       style={{
-                        opacity: 0.7,
-                        borderRadius: 10,
                         justifyContent: "center",
                         alignItems: "center",
-                        borderWidth: 1,
-                        borderColor: "#fff",
+                        flex: 1,
                       }}
-                    />
-                  </View>
-                </ImageBackground>
+                    >
+                      <Icon1
+                        name="camera"
+                        size={35}
+                        color="#fff"
+                        style={{
+                          opacity: 0.7,
+                          borderRadius: 10,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderWidth: 1,
+                          borderColor: "#fff",
+                        }}
+                      />
+                    </View>
+                  </ImageBackground>
+                )}
               </View>
             </TouchableOpacity>
             <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "bold" }}>
@@ -291,11 +314,12 @@ const editprofilescreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFFFF",
   },
   commandButton: {
     padding: 15,
     borderRadius: 10,
-    backgroundColor: "#24a0ed",
+    backgroundColor: "#de8e59",
     alignItems: "center",
     marginTop: 10,
   },
@@ -334,6 +358,11 @@ const styles = StyleSheet.create({
   panelTitle: {
     fontSize: 27,
     height: 35,
+  },
+  photo: {
+    width: 90,
+    height: 90,
+    borderRadius: 75,
   },
   panelSubtitle: {
     fontSize: 14,
