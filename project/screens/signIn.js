@@ -22,7 +22,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import GoogleButton from "react-google-button";
 import { Container } from "@mui/material";
-import { RFValue } from "react-native-responsive-fontsize";
+// import { RFValue } from "react-native-responsive-fontsize";
 
 const isValidObjectForm = (obj) => {
   return Object.values(obj).every((value) => value.trim());
