@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -8,83 +8,93 @@ import {
   useWindowDimensions,
   ImageBackground,
   style,
-} from 'react-native';
-import React from 'react';
-import img from '../assets/images/image12.jpg';
-import CustomButton from '../components/customButton';
-import CustomInput from '../components/customInput';
-import { auth } from '../firebase/fireBase';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { GoogleAuthProvider } from 'firebase/auth';
+  span,
+  TouchableOpacity,
+} from "react-native";
+import React from "react";
+import img from "../assets/images/image12.jpg";
+import CustomButton from "../components/customButton";
+import CustomInput from "../components/customInput";
+import {auth} from "../firebase/fireBase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
+import GoogleButton from 'react-google-button';
 
-const isValidObjectForm = obj => {
-  return Object.values(obj).every(value => value.trim());
-};
+
+const isValidObjectForm = (obj) => {
+  return Object.values(obj).every(value => value.trim())
+}
 
 const updateError = (error, stateUpdater) => {
   stateUpdater(error);
   setTimeout(() => {
-    stateUpdater('');
+    stateUpdater('')
   }, 2500);
-};
+}
 
-const isValidEmail = value => {
+const isValidEmail = (value) =>{
   const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-  return regx.test(value);
-};
+  return regx.test(value)
+}
 
 const signIn = ({ navigation }) => {
   const { height } = useWindowDimensions();
 
   const [userInfo, setUserInfo] = useState({
     email: '',
-    password: '',
-  });
+    password:'',
+  })
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState('')
+  const [errorCode , setErrorCode] = useState('');
 
-  const { email, password } = userInfo;
+  const {email, password} = userInfo;
 
   const handleOnChangeText = (value, fieldName) => {
-    setUserInfo({ ...userInfo, [fieldName]: value });
-  };
+    setUserInfo({...userInfo, [fieldName] : value})
+  }
 
   const isValidForm = () => {
-    if (!isValidObjectForm(userInfo))
-      return updateError('Required all fields!', setError);
+    if(!isValidObjectForm(userInfo)) return updateError('Required all fields!', setError);
     // only valid email id is allowed
-    if (!isValidEmail(email)) return updateError('Invalid email!', setError);
+    if(!isValidEmail(email)) return updateError('Invalid email!', setError);
     //password must have 8 or more characters
-    if (!password.trim() || password.length < 8)
-      return updateError('Password is too short!', setError);
-    else handleSignIn();
+    if(!password.trim() || password.length < 8) 
+    return updateError('Password is too short!', setError);
+    else
+      handleSignIn();
 
     return true;
-  };
+  }
+
 
   // navigation to forgetPassword page
   const handleForgetPassWordPress = () => {
-    navigation.navigate('ForgetPassword');
+    navigation.navigate("ForgetPassword");
   };
 
   // navigation to signUP page
   const handleCreateOnePress = () => {
-    navigation.navigate('SignUp');
+    navigation.navigate("SignUp");
   };
 
   // handleSignIn
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
+      .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log('Done');
-        navigation.navigate('Home');
+        console.log("Done");
+        navigation.navigate("Home");
+        // ...
       })
-      .catch(error => {
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
+        window.alert(errorMessage);
       });
   };
 
@@ -92,18 +102,18 @@ const signIn = ({ navigation }) => {
   const handleGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then(result => {
+      .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        console.log('Done');
-        navigation.navigate('Profile');
+        console.log("Done");
+        navigation.navigate("Profile");
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       })
-      .catch(error => {
+      .catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -114,87 +124,132 @@ const signIn = ({ navigation }) => {
         // ...
       });
   };
+
   return (
     <View style={styles.container}>
-      {error ? (
-        <Text style={{ color: 'red', fontSize: 20, textAlign: 'center' }}>
-          {error}
-        </Text>
-      ) : null}
-      <Text style={styles.title}>Sign in</Text>
-      <View style={styles.textInput}>
-        <TextInput
-          style={styles.input}
-          placeholder='Email'
-          value={email}
-          onChangeText={value => handleOnChangeText(value, 'email')}
-        />
-      </View>
-      <View style={styles.textInput}>
-        <TextInput
-          style={styles.input}
-          placeholder='Password'
-          value={password}
-          onChangeText={value => handleOnChangeText(value, 'password')}
-          secureTextEntry={true}
-        />
-      </View>
+      <ImageBackground source={img} resizeMode="cover" style={styles.img}>
+        {error ? (
+          <Text style={{ color: "red", fontSize: 20, textAlign: "center" }}>
+            {error}
+          </Text>
+        ) : null}
 
-      <CustomButton text='Sign in' onPress={isValidForm} />
+        <View style={styles.textInput}>
+          <PersonIcon style={styles.icon}></PersonIcon>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={(value) => handleOnChangeText(value, "email")}
+          />
+        </View>
+        <View style={styles.textInput}>
+          <LockIcon style={styles.icon}></LockIcon>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            value={password}
+            onChangeText={(value) => handleOnChangeText(value, "password")}
+            secureTextEntry={true}
+          />
+        </View>
+        <View>
+        <TouchableOpacity>
+          <Text
+          style={styles.textLink}
+          type='Link'
+          onPress={handleForgetPassWordPress}>Forget Password?</Text>
+        </TouchableOpacity>
+        </View>
 
-      <CustomButton
-        text='Forget Password?'
-        type='Link'
-        onPress={handleForgetPassWordPress}
-      />
-      <CustomButton
-        text='Sign in With Google'
-        onPress={handleGoogle}
-        bgColor='#de8e59'
-      />
-      <CustomButton
-        text='Don’t have an account? Create one'
-        type='Link'
-        onPress={handleCreateOnePress}
-      />
+        <CustomButton text="Sign in" onPress={isValidForm} />
+        <GoogleButton
+          style={styles.socialIcon}
+          type="light" // can be light or dark
+          onClick={() => {
+            handleGoogle();
+          }}
+        />
+         <TouchableOpacity>
+          <Text
+          style={styles.Link}
+          type="Link"
+          onPress={handleCreateOnePress}>Not registered? Create an account!</Text>
+        </TouchableOpacity>
+
+      </ImageBackground>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 20,
-    backgroundColor: '#e5d1b8',
+    backgroundColor: "#E6D4CA",
   },
-
+  img: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    alignItems: 'baseline',
-    color: '#ffff',
+    fontSize: 50,
+    justifyContent: "center",
+    marginRight: 10,
   },
-
   text: {
     fontSize: 20,
-    color: '#ffff',
+    color: "#ffff",
     marginLeft: 50,
   },
 
-  textInput: {
+  textInput:{
     backgroundColor: '#ffff',
-    width: '100%',
-    height: 50,
+    width: '60%',
+    height: 40,
     marginVertical: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 4,
     borderColor: 'white',
-    borderWidth: 2,
-    borderRadius: 999,
+    flexDirection:'row',
+    
   },
 
   input: {
     height: '100%',
     fontSize: 20,
+    flex: 1,
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
   },
+
+  icon: {
+    paddingLeft:3,
+    paddingBottom:10,
+    paddingTop:10,
+    paddingRight:10,
+  },
+  socialIcon:{
+    width:'60%',
+    marginTop:10,
+  },
+  textLink: {
+    fontWeight:'bold',
+    fontSize: 18,
+    color: '#2b2129',
+    paddingLeft:190,
+    
+  },
+  Link:{
+    fontWeight:'bold',
+    fontSize: 18,
+    color: '#2b2129',
+    paddingTop:10,
+    
+  }
 });
 export default signIn;
+
