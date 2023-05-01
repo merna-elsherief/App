@@ -19,7 +19,8 @@ const welcome = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={img} resizeMode='contain' style={styles.img}>
-        <Text style={styles.text}>Welcome</Text>
+        <Text style={styles.text}>Welcome To</Text>
+        <Text style={styles.text}>Lost Chapter</Text>
         <CustomButton
           text='Get Started'
           type='Default'
