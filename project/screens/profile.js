@@ -32,6 +32,7 @@ const profile = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [birthday, setBirthDay] = useState("");
+  const [photo, setPhoto] = useState(null);
   const [viewMode, setViewMode] = useState(true);
   const handleSignOut = () => {
     signOut(auth)
@@ -64,6 +65,7 @@ const profile = ({ navigation }) => {
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setPhone(data.phone);
+      setPhoto(data.photo);
       setBirthDay(data.birthday);
     } else {
       // docSnap.data() will be undefined in this case
@@ -75,7 +77,24 @@ getUser();
     <SafeAreaView style={styles.container}>
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
-          <Avatar.Image source={img1} size={80} />
+          {photo ? (
+            <Image source={{ uri: photo }} style={styles.photo} />
+          ) : (
+            <ImageBackground
+              source={img1}
+              style={{ height: 100, width: 100 }}
+              imageStyle={{ borderRadius: 15 }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flex: 1,
+                }}
+              >
+              </View>
+            </ImageBackground>
+          )}
           <View style={{ marginLeft: 20 }}>
             <Title
               style={[
@@ -87,7 +106,7 @@ getUser();
               ]}
             >
               {" "}
-              {firstName} {lastName} 
+              {firstName} {lastName}
             </Title>
             <Caption style={styles.caption}> {email}</Caption>
           </View>
@@ -162,7 +181,7 @@ getUser();
         </TouchableRipple>
       </View>
       <View>
-            <TouchableRipple onPress={handleSignOut}>
+        <TouchableRipple onPress={handleSignOut}>
           <View style={styles.menuItem}>
             <Icon name="logout" color="#FF6347" size={25} />
             <Text style={styles.menuItemText}> logout </Text>
@@ -212,6 +231,11 @@ const styles = StyleSheet.create({
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 25,
+  },
+  photo: {
+    width: 90,
+    height: 90,
+    borderRadius: 75,
   },
   caption: {
     fontSize: 14,
