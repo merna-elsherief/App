@@ -18,6 +18,11 @@ import CustomInput from "../components/customInput";
 import { auth, db } from "../firebase/fireBase";
 import validator from 'validator';
 import { shadow } from "react-native-paper";
+import EmailIcon from '@mui/icons-material/Email';
+import LockIcon from '@mui/icons-material/Lock';
+import PersonIcon from '@mui/icons-material/Person';
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 const isValidObjectForm = (obj) => {
   return Object.values(obj).every((value) => value.trim());
@@ -128,6 +133,7 @@ const signUp = ({ navigation }) => {
         </Text>
       ) : null}
       <View style={styles.textInput}>
+      <PersonIcon style={styles.icon}></PersonIcon>
         <TextInput
           style={styles.input}
           placeholder="First Name"
@@ -137,6 +143,7 @@ const signUp = ({ navigation }) => {
         />
       </View>
       <View style={styles.textInput}>
+      <PersonIcon style={styles.icon}></PersonIcon>
         <TextInput
           style={styles.input}
           placeholder="Last Name"
@@ -146,6 +153,7 @@ const signUp = ({ navigation }) => {
         />
       </View>
       <View style={styles.textInput}>
+      <EmailIcon style={styles.icon}></EmailIcon>
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -154,6 +162,7 @@ const signUp = ({ navigation }) => {
         />
       </View>
       <View style={styles.textInput}>
+      <LockIcon style={styles.icon}></LockIcon>
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -163,6 +172,7 @@ const signUp = ({ navigation }) => {
         />
       </View>
       <View style={styles.textInput}>
+      <PhoneEnabledIcon style={styles.icon}></PhoneEnabledIcon>
         <TextInput
           style={styles.input}
           placeholder="Phone"
@@ -171,6 +181,7 @@ const signUp = ({ navigation }) => {
         />
       </View>
       <View style={styles.textInput}>
+      <CalendarMonthIcon style={styles.icon}></CalendarMonthIcon>
         <TextInput
           style={styles.input}
           placeholder="BirthDay"
@@ -187,6 +198,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 20,
+    backgroundColor: "#E6D4CA",
     
   },
   img: {
@@ -218,13 +230,19 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: "100%",
+    height: '100%',
     fontSize: 20,
     flex: 1,
     paddingTop: 10,
     paddingRight: 10,
     paddingBottom: 10,
-    paddingLeft:10,
+  },
+
+  icon: {
+    paddingLeft:3,
+    paddingBottom:10,
+    paddingTop:10,
+    paddingRight:10,
   },
 
 });
