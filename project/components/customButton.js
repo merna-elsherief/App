@@ -30,21 +30,21 @@ const customButton = ({
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    width: '90%',
+  containerButton: {
+    width: '60%',
     padding: 15,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#c2956e',
-    marginTop: 5,
-    borderRadius: 25,
-
+    marginTop: 30,
+    borderRadius: 0,
+    height:50,
     // backgroundColor: "#fff",
     // alignItems: "center",
     // justifyContent: "center",
   },
   containerLink: {
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
   },
   containerDefault: {
     width: '50%',
@@ -53,13 +53,13 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
+    marginTop: 40,
     marginBottom: 10,
   },
 
   text: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 18,
     color: 'white',
   },
   textLink: {
