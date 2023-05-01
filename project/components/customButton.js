@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#04558A',
+    backgroundColor: '#c2956e',
     marginTop: 5,
     borderRadius: 25,
 
@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   containerDefault: {
-    width: '90%',
-    backgroundColor: '#F8C304',
+    width: '50%',
+    backgroundColor: '#c2956e',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',

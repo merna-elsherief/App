@@ -41,7 +41,7 @@ const home = ({ navigation }) => {
                 {
                   backgroundColor:
                     selectedcategoryIndex == index
-                      ? '#F8C304'
+                      ? '#c2956e'
                       : 'rgbs(0,0,0,0)',
                 },
               ]}
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   sortBtn: {
-    backgroundColor: '#6C117B',
+    backgroundColor: '#c2956e',
     height: 50,
     width: 50,
     borderRadius: 12,

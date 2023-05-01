@@ -121,7 +121,7 @@ const signIn = ({ navigation }) => {
           {error}
         </Text>
       ) : null}
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Sign in</Text>
       <View style={styles.textInput}>
         <TextInput
           style={styles.input}
@@ -140,16 +140,17 @@ const signIn = ({ navigation }) => {
         />
       </View>
 
-      <CustomButton text='Login' onPress={isValidForm} />
-      <CustomButton
-        text='Sign in With Google'
-        onPress={handleGoogle}
-        bgColor='#AA66A5'
-      />
+      <CustomButton text='Sign in' onPress={isValidForm} />
+
       <CustomButton
         text='Forget Password?'
         type='Link'
         onPress={handleForgetPassWordPress}
+      />
+      <CustomButton
+        text='Sign in With Google'
+        onPress={handleGoogle}
+        bgColor='#de8e59'
       />
       <CustomButton
         text='Don’t have an account? Create one'
@@ -164,14 +165,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#ffff',
+    backgroundColor: '#e5d1b8',
   },
 
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
     alignItems: 'baseline',
-    color: '#0182B0',
+    color: '#ffff',
   },
 
   text: {

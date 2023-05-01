@@ -8,22 +8,24 @@ import {
   style,
 } from 'react-native';
 import React from 'react';
-import img from '../assets/images/welcome.png';
+import img from '../assets/images/image6.jpg';
 import CustomButton from '../components/customButton';
 const welcome = ({ navigation }) => {
   const { height } = useWindowDimensions();
-  const handleSignin = () => {
+  const handleGetSTarted = () => {
     navigation.navigate('SignIn');
   };
-  const handleSignup = () => {
-    navigation.navigate('SignUp');
-  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome</Text>
-      <Image source={img} resizeMode='contain' style={styles.img}></Image>
-      <CustomButton text='Sign up' type='Default' onPress={handleSignup} />
-      <CustomButton text='Sign in' type='Default' onPress={handleSignin} />
+      <ImageBackground source={img} resizeMode='contain' style={styles.img}>
+        <Text style={styles.text}>Welcome</Text>
+        <CustomButton
+          text='Get Started'
+          type='Default'
+          onPress={handleGetSTarted}
+        />
+      </ImageBackground>
     </View>
   );
 };
@@ -32,15 +34,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#0182B0',
+    backgroundColor: '#ffff',
   },
   img: {
     flex: 1,
     width: '100%',
     height: '100%',
+    resizeMode: 'cover',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 50,
   },
   title: {
     fontSize: 50,
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: 'bold',
     fontSize: 40,
-    color: '#F8C304',
+    color: '#ffff',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 30,
