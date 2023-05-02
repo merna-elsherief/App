@@ -171,7 +171,7 @@ const home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffff',
+    backgroundColor: '#F5F1EE',
   },
   header: {
     paddingVertical: 20,
