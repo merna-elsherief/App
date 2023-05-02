@@ -15,60 +15,60 @@ import React from "react";
 import img from "../assets/images/image12.jpg";
 import CustomButton from "../components/customButton";
 import CustomInput from "../components/customInput";
-import {auth} from "../firebase/fireBase";
+import { auth } from "../firebase/fireBase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
-import PersonIcon from '@mui/icons-material/Person';
-import LockIcon from '@mui/icons-material/Lock';
-import GoogleButton from 'react-google-button';
-
+import EmailIcon from "@mui/icons-material/Email";
+import LockIcon from "@mui/icons-material/Lock";
+import GoogleButton from "react-google-button";
+import { Container } from "@mui/material";
+// import { RFValue } from "react-native-responsive-fontsize";
 
 const isValidObjectForm = (obj) => {
-  return Object.values(obj).every(value => value.trim())
-}
+  return Object.values(obj).every((value) => value.trim());
+};
 
 const updateError = (error, stateUpdater) => {
   stateUpdater(error);
   setTimeout(() => {
-    stateUpdater('')
+    stateUpdater("");
   }, 2500);
-}
+};
 
-const isValidEmail = (value) =>{
+const isValidEmail = (value) => {
   const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-  return regx.test(value)
-}
+  return regx.test(value);
+};
 
 const signIn = ({ navigation }) => {
   const { height } = useWindowDimensions();
 
   const [userInfo, setUserInfo] = useState({
-    email: '',
-    password:'',
-  })
+    email: "",
+    password: "",
+  });
 
-  const [error, setError] = useState('')
-  const [errorCode , setErrorCode] = useState('');
+  const [error, setError] = useState("");
+  const [errorCode, setErrorCode] = useState("");
 
-  const {email, password} = userInfo;
+  const { email, password } = userInfo;
 
   const handleOnChangeText = (value, fieldName) => {
-    setUserInfo({...userInfo, [fieldName] : value})
-  }
+    setUserInfo({ ...userInfo, [fieldName]: value });
+  };
 
   const isValidForm = () => {
-    if(!isValidObjectForm(userInfo)) return updateError('Required all fields!', setError);
+    if (!isValidObjectForm(userInfo))
+      return updateError("Required all fields!", setError);
     // only valid email id is allowed
-    if(!isValidEmail(email)) return updateError('Invalid email!', setError);
+    if (!isValidEmail(email)) return updateError("Invalid email!", setError);
     //password must have 8 or more characters
-    if(!password.trim() || password.length < 8) 
-    return updateError('Password is too short!', setError);
-    else
-      handleSignIn();
+    if (!password.trim() || password.length < 8)
+      return updateError("Password is too short!", setError);
+    else handleSignIn();
 
     return true;
-  }
-
+  };
 
   // navigation to forgetPassword page
   const handleForgetPassWordPress = () => {
@@ -127,57 +127,56 @@ const signIn = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={img} resizeMode="cover" style={styles.img}>
-        {error ? (
-          <Text style={{ color: "red", fontSize: 20, textAlign: "center" }}>
-            {error}
-          </Text>
-        ) : null}
+      <Text style={styles.title}>Sign in</Text>
+      {error ? (
+        <Text style={{ color: "red", fontSize: 20, textAlign: "center" }}>
+          {error}
+        </Text>
+      ) : null}
 
-        <View style={styles.textInput}>
-          <PersonIcon style={styles.icon}></PersonIcon>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={email}
-            onChangeText={(value) => handleOnChangeText(value, "email")}
-          />
-        </View>
-        <View style={styles.textInput}>
-          <LockIcon style={styles.icon}></LockIcon>
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            value={password}
-            onChangeText={(value) => handleOnChangeText(value, "password")}
-            secureTextEntry={true}
-          />
-        </View>
-        <View>
+      <View style={styles.textInput}>
+        <EmailIcon style={styles.icon}></EmailIcon>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={(value) => handleOnChangeText(value, "email")}
+        />
+      </View>
+      <View style={styles.textInput}>
+        <LockIcon style={styles.icon}></LockIcon>
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={(value) => handleOnChangeText(value, "password")}
+          secureTextEntry={true}
+        />
+      </View>
+      <View>
         <TouchableOpacity>
           <Text
-          style={styles.textLink}
-          type='Link'
-          onPress={handleForgetPassWordPress}>Forget Password?</Text>
+            style={styles.textLink}
+            type="Link"
+            onPress={handleForgetPassWordPress}
+          >
+            Forget Password?
+          </Text>
         </TouchableOpacity>
-        </View>
-
-        <CustomButton text="Sign in" onPress={isValidForm} />
-        <GoogleButton
-          style={styles.socialIcon}
-          type="light" // can be light or dark
-          onClick={() => {
-            handleGoogle();
-          }}
-        />
-         <TouchableOpacity>
-          <Text
-          style={styles.Link}
-          type="Link"
-          onPress={handleCreateOnePress}>Not registered? Create an account!</Text>
-        </TouchableOpacity>
-
-      </ImageBackground>
+      </View>
+      <CustomButton text="Sign in" onPress={isValidForm} />
+      <GoogleButton
+        style={styles.socialIcon}
+        type="light" // can be light or dark
+        onClick={() => {
+          handleGoogle();
+        }}
+      />
+      <TouchableOpacity>
+        <Text style={styles.Link} type="Link" onPress={handleCreateOnePress}>
+          Not registered? Create an account!
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -187,6 +186,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     backgroundColor: "#E6D4CA",
+    paddingTop: 150,
   },
   img: {
     flex: 1,
@@ -197,8 +197,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 50,
-    justifyContent: "center",
+    // justifyContent: "center",
     marginRight: 10,
+    paddingBottom: 40,
   },
   text: {
     fontSize: 20,
@@ -206,19 +207,18 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
 
-  textInput:{
-    backgroundColor: '#ffff',
-    width: '60%',
+  textInput: {
+    backgroundColor: "#ffff",
+    width: "60%",
     height: 40,
     marginVertical: 10,
     paddingHorizontal: 4,
-    borderColor: 'white',
-    flexDirection:'row',
-    
+    borderColor: "white",
+    flexDirection: "row",
   },
 
   input: {
-    height: '100%',
+    height: "100%",
     fontSize: 20,
     flex: 1,
     paddingTop: 10,
@@ -227,29 +227,25 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    paddingLeft:3,
-    paddingBottom:10,
-    paddingTop:10,
-    paddingRight:10,
+    paddingLeft: 3,
+    paddingBottom: 10,
+    paddingTop: 10,
+    paddingRight: 10,
   },
-  socialIcon:{
-    width:'60%',
-    marginTop:10,
+  socialIcon: {
+    width: "60%",
+    marginTop: 10,
   },
   textLink: {
-    fontWeight:'bold',
+    // fontWeight:'bold',
     fontSize: 18,
-    color: '#2b2129',
-    paddingLeft:190,
-    
+    color: "#2b2129",
   },
-  Link:{
-    fontWeight:'bold',
+  Link: {
+    fontWeight: "bold",
     fontSize: 18,
-    color: '#2b2129',
-    paddingTop:10,
-    
-  }
+    color: "#2b2129",
+    paddingTop: 10,
+  },
 });
 export default signIn;
-
