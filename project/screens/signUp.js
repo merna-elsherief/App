@@ -109,6 +109,7 @@ const signUp = ({ navigation }) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
+        window.alert(errorMessage);
         // ..
       });
   };
