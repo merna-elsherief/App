@@ -85,6 +85,9 @@ const home = ({ navigation }) => {
             <Icon name='star' color='#de8e59' size={18} />
             <Text style={styles.rating}>{book.rating}</Text>
           </View>
+          {/* <TouchableOpacity style={style.AddToCarbtn} onPress={(count) =>{count+1}}>
+            
+          </TouchableOpacity> */}
         </View>
       </View>
     );

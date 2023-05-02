@@ -314,7 +314,7 @@ const editprofilescreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F5F1EE",
   },
   commandButton: {
     padding: 15,
