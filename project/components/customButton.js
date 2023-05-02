@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#c2956e',
     marginTop: 30,
     borderRadius: 0,
-    height:50,
+    height: 50,
     // backgroundColor: "#fff",
     // alignItems: "center",
     // justifyContent: "center",
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   containerDefault: {
-    width: '50%',
+    width: '25%',
     backgroundColor: '#c2956e',
     borderRadius: 25,
     height: 50,
