@@ -120,6 +120,7 @@ const signUp = ({ navigation }) => {
       birthday: birthday,
       email: email,
       photo: "",
+      isAdmin: false,
     });
   };
 
