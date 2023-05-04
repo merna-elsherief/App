@@ -6,6 +6,7 @@ import SignUp from '../screens/signUp';
 import ForgetPassword from '../screens/forgetPassword';
 import Profile from '../screens/profile';
 import EditProfileScreen from '../screens/editprofilescreen';
+import AddProduct from "../screens/addProduct";
 import Home from '../screens/home';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -16,16 +17,17 @@ const index = () => {
     <NavigationContainer>
       <SafeAreaView style={styles.root}>
         <Stack.Navigator screenOptions={{ headerShown: true }}>
-          <Stack.Screen name='Welcome' component={Welcome} />
-          <Stack.Screen name='SignIn' component={SignIn} />
-          <Stack.Screen name='SignUp' component={SignUp} />
-          <Stack.Screen name='ForgetPassword' component={ForgetPassword} />
-          <Stack.Screen name='Profile' component={Profile} />
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+          <Stack.Screen name="AddProduct" component={AddProduct} />
+          <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen
-            name='EditProfileScreen'
+            name="EditProfileScreen"
             component={EditProfileScreen}
           />
-          <Stack.Screen name='Home' component={Home} />
+          <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>
