@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  Pressable,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import React from 'react';
@@ -64,58 +65,62 @@ const home = ({ navigation }) => {
   };
   const Card = ({ book }) => {
     return (
-      <View style={styles.card}>
-        <Image
-          source={book.image}
-          style={{ height: 120, width: '100%', borderRadius: 10 }}
-        />
-        <View style={styles.iconContainer}>
-          <Icon name='heart' color={book.liked ? 'red' : '#2b2129'} />
-        </View>
-        <Text style={styles.cardName}>{book.name}</Text>
-        <View
-          style={{
-            marginTop: 5,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Text style={styles.price}>{book.price}</Text>
-          <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-            <Icon name='star' color='#de8e59' size={18} />
-            <Text style={styles.rating}>{book.rating}</Text>
+      <Pressable onPress={() => navigation.navigate('DetailsScreen', book)}>
+        <View style={styles.card}>
+          <Image
+            source={book.image}
+            style={{ height: 120, width: '100%', borderRadius: 10 }}
+          />
+          <View style={styles.iconContainer}>
+            <Icon name='heart' color={book.liked ? 'red' : '#2b2129'} />
           </View>
-          {/* <TouchableOpacity style={style.AddToCarbtn} onPress={(count) =>{count+1}}>
+          <Text style={styles.cardName}>{book.name}</Text>
+          <View
+            style={{
+              marginTop: 5,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Text style={styles.price}>{book.price}</Text>
+            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+              <Icon name='star' color='orange' size={18} />
+              <Text style={styles.rating}>{book.rating}</Text>
+            </View>
+            {/* <TouchableOpacity style={style.AddToCarbtn} onPress={(count) =>{count+1}}>
             
           </TouchableOpacity> */}
+          </View>
         </View>
-      </View>
+      </Pressable>
     );
   };
   const PopularCard = ({ book }) => {
     return (
-      <View style={styles.popularCard}>
-        <Image
-          source={book.image}
-          style={{
-            width: 70,
-            height: '100%',
-            borderTopLeftRadius: 10,
-            borderBottomLeftRadius: 10,
-            marginRight: 10,
-          }}
-        />
-        <View style={{ paddingVertical: 15, justifyContent: 'center' }}>
-          <Text style={styles.cardName}>{book.name}</Text>
-          <View style={{ flexDirection: 'row', marginTop: 10 }}>
-            <Text style={styles.price}>{book.price}</Text>
-            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-              <Icon name='star' color='yellow' size={18}></Icon>
-              <Text style={styles.rating}>{book.rating}</Text>
+      <Pressable onPress={() => navigation.navigate('DetailsScreen', book)}>
+        <View style={styles.popularCard}>
+          <Image
+            source={book.image}
+            style={{
+              width: 70,
+              height: '100%',
+              borderTopLeftRadius: 10,
+              borderBottomLeftRadius: 10,
+              marginRight: 10,
+            }}
+          />
+          <View style={{ paddingVertical: 15, justifyContent: 'center' }}>
+            <Text style={styles.cardName}>{book.name}</Text>
+            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+              <Text style={styles.price}>{book.price}</Text>
+              <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                <Icon name='star' color='orange' size={18}></Icon>
+                <Text style={styles.rating}>{book.rating}</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </Pressable>
     );
   };
 
