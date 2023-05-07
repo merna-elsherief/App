@@ -44,7 +44,7 @@ const addProduct = ({ navigation }) => {
     setProductInfo({ ...productInfo, [fieldName]: value });
   };
   const addProductToDataBase = async () => {
-    const docRef = await addDoc(collection(db, "products"), {
+    const docRef2 = await addDoc(collection(db, "products"), {
       title: title,
       desc: desc,
       price: price,
@@ -52,8 +52,9 @@ const addProduct = ({ navigation }) => {
       img: img,
       instock: count === 0 ? false : true,
     });
+      console.log("Document written with ID: ", docRef2.id);
   };
-  console.log("Document written with ID: ", docRef.id);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Add Books</Text>
