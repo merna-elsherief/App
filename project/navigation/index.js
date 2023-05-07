@@ -12,6 +12,7 @@ import DetailsScreen from '../screens/DetailsScreen';
 import TopBooks from '../screens/TopBooks';
 import Books from '../screens/Books';
 import Novels from '../screens/Novels';
+import Cart from '../screens/Cart';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -31,6 +32,7 @@ const index = () => {
           <Stack.Screen name='Top Books' component={TopBooks} />
           <Stack.Screen name='Books' component={Books} />
           <Stack.Screen name='Novels' component={Novels} />
+          <Stack.Screen name='Cart' component={Cart} />
           <Stack.Screen
             name='EditProfileScreen'
             component={EditProfileScreen}
