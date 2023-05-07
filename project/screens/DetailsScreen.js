@@ -28,7 +28,17 @@ const DetailsScreen = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
+        <Icon
+          name='account'
+          size={28}
+          onPress={() => navigation.navigate('EditProfileScreen')}
+        ></Icon>
         <Text style={styles.title}>Details</Text>
+        <Icon
+          name='cart-outline'
+          size={28}
+          onPress={() => navigation.navigate('Cart')}
+        ></Icon>
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -53,11 +63,11 @@ const DetailsScreen = ({ navigation, route }) => {
 
             <View style={styles.quantitycontainer}>
               <View style={styles.quantityBtn}>
-                <Button onPress={() => addfun}>+</Button>
+                <Icon name='plus' size={20} onPress={() => addfun} />
               </View>
               <Text style={styles.quantitytext}>{value}</Text>
               <View style={styles.quantityBtn}>
-                <Button onPress={() => minusfun}>-</Button>
+                <Icon name='minus' size={20} onPress={() => minusfun} />
               </View>
             </View>
           </View>
@@ -110,7 +120,7 @@ const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 10,
   },

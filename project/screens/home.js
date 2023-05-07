@@ -32,18 +32,16 @@ const home = ({ navigation }) => {
       <View style={styles.categoriescontainer}>
         {categoryItems.map((item, index) => (
           <TouchableOpacity
+            onPress={() => navigation.navigate(item.name)}
             activeOpacity={0.8}
             key={index}
-            onPress={() => setselectedcategoryIndex(index)}
+            //onPress={() => setselectedcategoryIndex(index)}
           >
             <View
               style={[
                 styles.categoryitemBtn,
                 {
-                  backgroundColor:
-                    selectedcategoryIndex == index
-                      ? '#c2956e'
-                      : 'rgbs(0,0,0,0)',
+                  backgroundColor: '#c2956e',
                 },
               ]}
             >
@@ -51,7 +49,7 @@ const home = ({ navigation }) => {
                 style={[
                   styles.categorytext,
                   {
-                    color: selectedcategoryIndex == index ? 'white' : '#340763',
+                    color: 'white',
                   },
                 ]}
               >
@@ -132,7 +130,12 @@ const home = ({ navigation }) => {
           size={28}
           onPress={() => navigation.navigate('EditProfileScreen')}
         ></Icon>
-        <Icon name='cart-outline' size={28}></Icon>
+
+        <Icon
+          name='cart-outline'
+          size={28}
+          onPress={() => navigation.navigate('Cart')}
+        ></Icon>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.text}>
