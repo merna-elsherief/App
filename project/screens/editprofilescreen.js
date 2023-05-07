@@ -87,7 +87,7 @@ const editprofilescreen = ({ navigation }) => {
     });
   };
   const getUser = async () => {
-    const docRef = doc(db, "usersData", auth.currentUser.uid);
+    const docRef = doc(db, "user", auth.currentUser.uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
