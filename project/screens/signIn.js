@@ -15,7 +15,8 @@ import React from "react";
 import img from "../assets/images/image12.jpg";
 import CustomButton from "../components/customButton";
 import CustomInput from "../components/customInput";
-import { auth } from "../firebase/fireBase";
+import { auth, db } from "../firebase/fireBase";
+import { doc, getDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { FacebookAuthProvider } from "firebase/auth";
@@ -42,6 +43,21 @@ const isValidEmail = (value) => {
 };
 
 const signIn = ({ navigation }) => {
+  const [isAdmin, setIsAdmin] = useState("");
+    const getUser = async () => {
+      const docRef = doc(db, "user", auth.currentUser.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        // console.log("Document data:", docSnap.data());
+        const data = docSnap.data();
+        setIsAdmin(data.isAdmin);
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    };
+    getUser();
   const { height } = useWindowDimensions();
 
   const [userInfo, setUserInfo] = useState({
@@ -88,7 +104,12 @@ const signIn = ({ navigation }) => {
         // Signed in
         const user = userCredential.user;
         console.log("Done");
-        navigation.navigate("Home");
+        if(isAdmin){
+          navigation.navigate("AddProduct");
+        }else{
+          navigation.navigate("Home");
+        }
+        
         // ...
       })
       .catch((error) => {
