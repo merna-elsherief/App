@@ -115,7 +115,7 @@ const home = ({ navigation }) => {
               justifyContent: "space-between",
             }}
           >
-            <Text style={styles.price}>{book.data.price}EGP</Text>
+            <Text style={styles.price}>{book.data.price}</Text>
             {/* <View style={{ flexDirection: "row", marginLeft: 10 }}>
               <Icon name="star" color="orange" size={18} />
               <Text style={styles.rating}>{book.rating}</Text>
