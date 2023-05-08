@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -16,7 +16,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import img from "../assets/images/image3.jpg";
 import CustomButton from "../components/customButton";
 import CustomInput from "../components/customInput";
-import { auth, db } from "../firebase/fireBase";
+import { auth, db, storage } from "../firebase/fireBase";
 import validator from "validator";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
@@ -38,59 +38,141 @@ import {
   useTheme,
   shadow,
 } from "react-native-paper";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const addProduct = ({ navigation }) => {
   const { height } = useWindowDimensions();
-
+  const [image, setImage] = useState(null);
+  const [img, setImg] = useState("");
   const [productInfo, setProductInfo] = useState({
     title: "",
     desc: "",
     price: "",
     count: 0,
     img: "",
+    rating:0,
     instock: count === 0 ? false : true,
   });
   const { colors } = useTheme();
   const [error, setError] = useState("");
+  const [uploaded, setUploaded] = useState(false);
 
-  const { title, desc, price, count, img, instock } = productInfo;
+  const { title, desc, price, count, instock, rating } = productInfo;
 
   const handleOnChangeText = (value, fieldName) => {
     setProductInfo({ ...productInfo, [fieldName]: value });
   };
-    const handleChoosePhoto = async () => {
-      const { status } =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera roll permissions to make this work!");
-        return;
-      }
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
+  const handleChoosePhoto = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Sorry, we need camera roll permissions to make this work!");
+      return;
+    }
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.canceled) {
+      setImage(result.uri);
+    }
+  };
+  useEffect(() => {
+    const uploadImage = async () => {
+      // convert image into blob image
+      const blobImage = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function () {
+          reject(new TypeError("Network request failed"));
+        };
+        xhr.responseType = "blob";
+        xhr.open("GET", image, true);
+        xhr.send(null);
       });
-      if (!result.canceled) {
-        setPhoto(result.uri);
-      }
+      //set metadata of image
+      // Create the file metadata
+      /** @type {any} */
+      const metadata = {
+        contentType: "image/jpeg",
+      };
+
+      //upload image on storage
+      // Upload file and metadata to the object 'images/mountains.jpg'
+      const storageRef = ref(storage, "imgs/" + Date.now());
+      const uploadTask = uploadBytesResumable(storageRef, blobImage, metadata);
+
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+        },
+        (error) => {
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case "storage/unauthorized":
+              // User doesn't have permission to access the object
+              break;
+            case "storage/canceled":
+              // User canceled the upload
+              break;
+
+            // ...
+
+            case "storage/unknown":
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+          }
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            setImg(downloadURL);
+            setUploaded(true);
+          });
+        }
+      );
     };
+    if (image != null) {
+      uploadImage();
+      setImage(null);
+    }
+  }, [image]);
   const addProductToDataBase = async () => {
     const docRef2 = await addDoc(collection(db, "products"), {
       title: title,
       desc: desc,
       price: price,
       count: count,
+      rating: rating,
       img: img,
       instock: count === 0 ? false : true,
     });
     console.log("Document written with ID: ", docRef2.id);
+    navigation.navigate("Home");
   };
 
   return (
     <View style={styles.container}>
       <View style={{ margin: 20 }}>
-        <View style={{ alignItems: "center" }}>
+        {/* <View style={{ alignItems: "center" }}>
           <TouchableOpacity onPress={handleChoosePhoto}>
             <View
               style={{
@@ -130,12 +212,12 @@ const addProduct = ({ navigation }) => {
               </ImageBackground>
             </View>
           </TouchableOpacity>
-          {/* <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "bold" }}>
+          <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "bold" }}>
             {email}
-          </Text> */}
-        </View>
+          </Text>
+        </View> */}
         <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
+          {/* <FontAwesome name="user-o" color={colors.text} size={20} /> */}
           <TextInput
             placeholder="Title"
             placeholderTextColor="#666666"
@@ -146,7 +228,7 @@ const addProduct = ({ navigation }) => {
           />
         </View>
         <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
+          {/* <FontAwesome name="user-o" color={colors.text} size={20} /> */}
           <TextInput
             placeholder="Description"
             placeholderTextColor="#666666"
@@ -157,7 +239,7 @@ const addProduct = ({ navigation }) => {
           />
         </View>
         <View style={styles.action}>
-          <Feather name="smartphone" color={colors.text} size={20} />
+          {/* <Feather name="smartphone" color={colors.text} size={20} /> */}
           <TextInput
             placeholder="Price"
             keyboardType="number-pad"
@@ -169,16 +251,34 @@ const addProduct = ({ navigation }) => {
           />
         </View>
         <View style={styles.action}>
-          <Icon2 name="date-range" color={colors.text} size={20} />
+          {/* <Icon2 name="date-range" color={colors.text} size={20} /> */}
           <TextInput
             placeholder="Count"
             placeholderTextColor="#666666"
             autoCorrect={false}
             style={[styles.textInput, { color: colors.text }]}
-            value={count}
+            
             onChangeText={(value) => handleOnChangeText(value, "count")}
           />
         </View>
+        <View style={styles.action}>
+          {/* <Icon2 name="date-range" color={colors.text} size={20} /> */}
+          <TextInput
+            placeholder="Rating"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={[styles.textInput, { color: colors.text }]}
+            
+            onChangeText={(value) => handleOnChangeText(value, "rating")}
+          />
+        </View>
+
+        <TouchableOpacity
+          onPress={handleChoosePhoto}
+          style={styles.commandButton}
+        >
+          <Text style={styles.panelButtonTitle}>Upload Photo</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={addProductToDataBase}
           style={styles.commandButton}

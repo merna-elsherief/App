@@ -32,9 +32,7 @@ const home = ({ navigation }) => {
   };*/
   ///////////////////////////////////////////////////////////////
   const [booksss, setBooksss] = useState([]);
-  useEffect(()=>{
-    
-  })
+  useEffect(() => {});
   useLayoutEffect(() => {
     const colRef = collection(db, "products");
     onSnapshot(colRef, (products) =>
@@ -45,8 +43,7 @@ const home = ({ navigation }) => {
         }))
       )
     );
-    
-  },[]);
+  }, []);
 
   // const getProduct = async () => {
   //   const docsSnap = await getDocs(colRef);
@@ -104,9 +101,9 @@ const home = ({ navigation }) => {
             source={{ uri: book.data.img }}
             style={{ height: 120, width: "100%", borderRadius: 10 }}
           />
-          <View style={styles.iconContainer}>
+          {/* <View style={styles.iconContainer}>
             <Icon name="heart" color={book.liked ? "red" : "#2b2129"} />
-          </View>
+          </View> */}
           <Text style={styles.cardName}>{book.data.title}</Text>
           <View
             style={{
@@ -115,11 +112,11 @@ const home = ({ navigation }) => {
               justifyContent: "space-between",
             }}
           >
-            <Text style={styles.price}>{book.data.price}</Text>
-            {/* <View style={{ flexDirection: "row", marginLeft: 10 }}>
-              <Icon name="star" color="orange" size={18} />
-              <Text style={styles.rating}>{book.rating}</Text>
-            </View> */}
+            <Text style={styles.price}>{book.data.price} EGP</Text>
+            <View style={{ flexDirection: "row", marginLeft: 10 }}>
+              {/* <Icon name="star" color="orange" size={18} /> */}
+              <Text style={styles.rating}>{book.data.rating}</Text>
+            </View>
             {/* <TouchableOpacity style={style.AddToCarbtn} onPress={(count) =>{count+1}}>
             
           </TouchableOpacity> */}
@@ -133,7 +130,7 @@ const home = ({ navigation }) => {
       <Pressable onPress={() => navigation.navigate("DetailsScreen", book)}>
         <View style={styles.popularCard}>
           <Image
-            source={{uri: book.data.img}}
+            source={{ uri: book.data.img }}
             style={{
               width: 70,
               height: "100%",
@@ -145,7 +142,7 @@ const home = ({ navigation }) => {
           <View style={{ paddingVertical: 15, justifyContent: "center" }}>
             <Text style={styles.cardName}>{book.data.title}</Text>
             <View style={{ flexDirection: "row", marginTop: 10 }}>
-              <Text style={styles.price}>{book.data.price}</Text>
+              <Text style={styles.price}>{book.data.price} EGP</Text>
               {/* <View style={{ flexDirection: "row", marginLeft: 10 }}>
                 <Icon name="star" color="orange" size={18}></Icon>
                 <Text style={styles.rating}>{book.rating}</Text>
