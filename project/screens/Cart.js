@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,6 +10,9 @@ import {
   FlatList,
   Pressable,
 } from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import books from '../const/books';
 import CustomButton from '../components/customButton';
