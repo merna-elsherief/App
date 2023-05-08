@@ -63,11 +63,11 @@ const DetailsScreen = ({ navigation, route }) => {
 
             <View style={styles.quantitycontainer}>
               <View style={styles.quantityBtn}>
-                <Icon name='plus' size={20} onPress={() => addfun} />
+                <Icon name='plus' size={20} onPress={ addfun} />
               </View>
               <Text style={styles.quantitytext}>{value}</Text>
               <View style={styles.quantityBtn}>
-                <Icon name='minus' size={20} onPress={() => minusfun} />
+                <Icon name='minus' size={20} onPress={ minusfun} />
               </View>
             </View>
           </View>
