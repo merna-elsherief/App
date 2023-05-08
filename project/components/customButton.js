@@ -66,5 +66,16 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#2b2129',
   },
+  containercheckout: {
+    width: '90%',
+    backgroundColor: '#c2956e',
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 40,
+    marginBottom: 10,
+  },
+  
 });
 export default customButton;
