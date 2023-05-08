@@ -50,13 +50,14 @@ const addProduct = ({ navigation }) => {
     price: "",
     count: 0,
     img: "",
+    rating:0,
     instock: count === 0 ? false : true,
   });
   const { colors } = useTheme();
   const [error, setError] = useState("");
   const [uploaded, setUploaded] = useState(false);
 
-  const { title, desc, price, count, instock } = productInfo;
+  const { title, desc, price, count, instock, rating } = productInfo;
 
   const handleOnChangeText = (value, fieldName) => {
     setProductInfo({ ...productInfo, [fieldName]: value });
@@ -160,6 +161,7 @@ const addProduct = ({ navigation }) => {
       desc: desc,
       price: price,
       count: count,
+      rating: rating,
       img: img,
       instock: count === 0 ? false : true,
     });
@@ -255,11 +257,22 @@ const addProduct = ({ navigation }) => {
             placeholderTextColor="#666666"
             autoCorrect={false}
             style={[styles.textInput, { color: colors.text }]}
-            value={count}
+            
             onChangeText={(value) => handleOnChangeText(value, "count")}
           />
         </View>
-        
+        <View style={styles.action}>
+          {/* <Icon2 name="date-range" color={colors.text} size={20} /> */}
+          <TextInput
+            placeholder="Rating"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={[styles.textInput, { color: colors.text }]}
+            
+            onChangeText={(value) => handleOnChangeText(value, "rating")}
+          />
+        </View>
+
         <TouchableOpacity
           onPress={handleChoosePhoto}
           style={styles.commandButton}
