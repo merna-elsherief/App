@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useLayoutEffect, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -9,22 +9,57 @@ import {
   TouchableOpacity,
   FlatList,
   Pressable,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import React from 'react';
-import books from '../const/books';
-import CustomInput from '../components/customInput';
-import CustomButton from '../components/customButton';
+} from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import React from "react";
+import books from "../const/books";
+import CustomInput from "../components/customInput";
+import CustomButton from "../components/customButton";
+import {
+  doc,
+  setDoc,
+  addDoc,
+  collection,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
+import { auth, db } from "../firebase/fireBase";
 
 const home = ({ navigation }) => {
   /*const { height } = useWindowDimensions();
   const handleSignin = () => {
     navigation.navigate('SignIn');
   };*/
+  ///////////////////////////////////////////////////////////////
+  const [booksss, setBooksss] = useState([]);
+  useEffect(()=>{
+    
+  })
+  useLayoutEffect(() => {
+    const colRef = collection(db, "products");
+    onSnapshot(colRef, (products) =>
+      setBooksss(
+        products.docs.map((product) => ({
+          id: product.id,
+          data: product.data(),
+        }))
+      )
+    );
+    
+  },[]);
+
+  // const getProduct = async () => {
+  //   const docsSnap = await getDocs(colRef);
+  //   docsSnap.forEach((doc) => {
+  //     console.log(doc.data().title);
+  //   });
+  // };
+
+  ///////////////////////////////////////////////////////////////
   const categoryItems = [
-    { name: 'Top Books' },
-    { name: 'Books' },
-    { name: 'Novels' },
+    { name: "Top Books" },
+    { name: "Books" },
+    { name: "Novels" },
   ];
   const ListCategories = () => {
     const [selectedcategoryIndex, setselectedcategoryIndex] = useState(0);
@@ -41,7 +76,7 @@ const home = ({ navigation }) => {
               style={[
                 styles.categoryitemBtn,
                 {
-                  backgroundColor: '#c2956e',
+                  backgroundColor: "#c2956e",
                 },
               ]}
             >
@@ -49,7 +84,7 @@ const home = ({ navigation }) => {
                 style={[
                   styles.categorytext,
                   {
-                    color: 'white',
+                    color: "white",
                   },
                 ]}
               >
@@ -63,28 +98,28 @@ const home = ({ navigation }) => {
   };
   const Card = ({ book }) => {
     return (
-      <Pressable onPress={() => navigation.navigate('DetailsScreen', book)}>
+      <Pressable onPress={() => navigation.navigate("DetailsScreen", book)}>
         <View style={styles.card}>
           <Image
-            source={book.image}
-            style={{ height: 120, width: '100%', borderRadius: 10 }}
+            source={{ uri: book.data.img }}
+            style={{ height: 120, width: "100%", borderRadius: 10 }}
           />
           <View style={styles.iconContainer}>
-            <Icon name='heart' color={book.liked ? 'red' : '#2b2129'} />
+            <Icon name="heart" color={book.liked ? "red" : "#2b2129"} />
           </View>
-          <Text style={styles.cardName}>{book.name}</Text>
+          <Text style={styles.cardName}>{book.data.title}</Text>
           <View
             style={{
               marginTop: 5,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
-            <Text style={styles.price}>{book.price}</Text>
-            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-              <Icon name='star' color='orange' size={18} />
+            <Text style={styles.price}>{book.data.price}</Text>
+            {/* <View style={{ flexDirection: "row", marginLeft: 10 }}>
+              <Icon name="star" color="orange" size={18} />
               <Text style={styles.rating}>{book.rating}</Text>
-            </View>
+            </View> */}
             {/* <TouchableOpacity style={style.AddToCarbtn} onPress={(count) =>{count+1}}>
             
           </TouchableOpacity> */}
@@ -95,26 +130,26 @@ const home = ({ navigation }) => {
   };
   const PopularCard = ({ book }) => {
     return (
-      <Pressable onPress={() => navigation.navigate('DetailsScreen', book)}>
+      <Pressable onPress={() => navigation.navigate("DetailsScreen", book)}>
         <View style={styles.popularCard}>
           <Image
-            source={book.image}
+            source={{uri: book.data.img}}
             style={{
               width: 70,
-              height: '100%',
+              height: "100%",
               borderTopLeftRadius: 10,
               borderBottomLeftRadius: 10,
               marginRight: 10,
             }}
           />
-          <View style={{ paddingVertical: 15, justifyContent: 'center' }}>
-            <Text style={styles.cardName}>{book.name}</Text>
-            <View style={{ flexDirection: 'row', marginTop: 10 }}>
-              <Text style={styles.price}>{book.price}</Text>
-              <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                <Icon name='star' color='orange' size={18}></Icon>
+          <View style={{ paddingVertical: 15, justifyContent: "center" }}>
+            <Text style={styles.cardName}>{book.data.title}</Text>
+            <View style={{ flexDirection: "row", marginTop: 10 }}>
+              <Text style={styles.price}>{book.data.price}</Text>
+              {/* <View style={{ flexDirection: "row", marginLeft: 10 }}>
+                <Icon name="star" color="orange" size={18}></Icon>
                 <Text style={styles.rating}>{book.rating}</Text>
-              </View>
+              </View> */}
             </View>
           </View>
         </View>
@@ -126,15 +161,15 @@ const home = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Icon
-          name='account'
+          name="account"
           size={28}
-          onPress={() => navigation.navigate('EditProfileScreen')}
+          onPress={() => navigation.navigate("EditProfileScreen")}
         ></Icon>
 
         <Icon
-          name='cart-outline'
+          name="cart-outline"
           size={28}
-          onPress={() => navigation.navigate('Cart')}
+          onPress={() => navigation.navigate("Cart")}
         ></Icon>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -144,17 +179,17 @@ const home = ({ navigation }) => {
         </Text>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            justifyContent: "space-between",
             padding: 20,
           }}
         >
           <View style={styles.searchcontainer}>
-            <Icon name='magnify' color='grey' size={25} />
-            <CustomInput placeholder='search' />
+            <Icon name="magnify" color="grey" size={25} />
+            <CustomInput placeholder="search" />
           </View>
           <View style={styles.sortBtn}>
-            <Icon name='tune' color='#ffff' size={25} />
+            <Icon name="tune" color="#ffff" size={25} />
           </View>
         </View>
         <Text style={styles.title}>Categories</Text>
@@ -164,7 +199,7 @@ const home = ({ navigation }) => {
           contentContainerStyle={{ paddingLeft: 20 }}
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={books}
+          data={booksss}
           renderItem={({ item }) => <Card book={item} />}
         />
         <Text style={styles.title}>Popular</Text>
@@ -172,7 +207,7 @@ const home = ({ navigation }) => {
           contentContainerStyle={{ paddingLeft: 20 }}
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={books}
+          data={booksss}
           renderItem={({ item }) => <PopularCard book={item} />}
         />
       </ScrollView>
@@ -182,76 +217,76 @@ const home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F1EE',
+    backgroundColor: "#F5F1EE",
   },
   header: {
     paddingVertical: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
-    color: '#340763',
+    color: "#340763",
   },
   img: {
     flex: 1,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     padding: 50,
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     paddingHorizontal: 20,
-    color: '#340763',
+    color: "#340763",
   },
 
   text: {
     fontSize: 23,
-    fontWeight: 'bold',
-    weight: '55%',
+    fontWeight: "bold",
+    weight: "55%",
     lineHeight: 30,
     paddingHorizontal: 20,
-    color: '#340763',
+    color: "#340763",
   },
   searchcontainer: {
     height: 50,
-    backgroundColor: '#ffff',
+    backgroundColor: "#ffff",
     flex: 1,
     borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 20,
   },
   sortBtn: {
-    backgroundColor: '#c2956e',
+    backgroundColor: "#c2956e",
     height: 50,
     width: 50,
     borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginLeft: 10,
   },
   categoriescontainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 20,
   },
   categoryitemBtn: {
-    flexDirection: 'row',
-    backgroundColor: 'rgbs(0,0,0,0)',
+    flexDirection: "row",
+    backgroundColor: "rgbs(0,0,0,0)",
     padding: 10,
     borderRadius: 7,
-    alignItems: 'center',
+    alignItems: "center",
   },
   categorytext: {
     fontSize: 15,
-    fontWeight: 'bold',
-    color: '#2b2129',
+    fontWeight: "bold",
+    color: "#2b2129",
   },
   card: {
     height: 190,
-    backgroundColor: '#ffff',
+    backgroundColor: "#ffff",
     elevation: 10,
     width: 120,
     marginRight: 20,
@@ -262,40 +297,40 @@ const styles = StyleSheet.create({
   cardName: {
     marginTop: 10,
     fontSize: 12,
-    color: '#2b2129',
-    fontWeight: 'bold',
+    color: "#2b2129",
+    fontWeight: "bold",
   },
   price: {
-    fontWeight: 'bold',
-    color: '#2b2129',
+    fontWeight: "bold",
+    color: "#2b2129",
     fontSize: 12,
   },
   rating: {
-    fontWeight: 'bold',
-    color: '#2b2129',
+    fontWeight: "bold",
+    color: "#2b2129",
     fontSize: 12,
   },
   iconContainer: {
     height: 25,
     width: 25,
-    backgroundColor: '#ffff',
-    position: 'absolute',
+    backgroundColor: "#ffff",
+    position: "absolute",
     elevation: 2,
     right: 15,
     top: 15,
     borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   popularCard: {
     height: 90,
     width: 240,
-    backgroundColor: '#ffff',
+    backgroundColor: "#ffff",
     elevation: 10,
     marginVertical: 20,
     marginRight: 20,
     borderRadius: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
 });
 export default home;
