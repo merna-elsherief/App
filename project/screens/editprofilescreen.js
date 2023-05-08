@@ -75,7 +75,7 @@ const editprofilescreen = ({ navigation }) => {
     // navigation.navigate("EditProfileScreen");
   };
   const handleUpdate = async () => {
-    const washingtonRef = doc(db, "usersData", auth.currentUser.uid);
+    const washingtonRef = doc(db, "user", auth.currentUser.uid);
 
     // Set the "capital" field of the city 'DC'
     await updateDoc(washingtonRef, {
@@ -87,7 +87,7 @@ const editprofilescreen = ({ navigation }) => {
     });
   };
   const getUser = async () => {
-    const docRef = doc(db, "usersData", auth.currentUser.uid);
+    const docRef = doc(db, "user", auth.currentUser.uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {

@@ -6,7 +6,13 @@ import SignUp from '../screens/signUp';
 import ForgetPassword from '../screens/forgetPassword';
 import Profile from '../screens/profile';
 import EditProfileScreen from '../screens/editprofilescreen';
+import AddProduct from '../screens/addProduct';
 import Home from '../screens/home';
+import DetailsScreen from '../screens/DetailsScreen';
+import TopBooks from '../screens/TopBooks';
+import Books from '../screens/Books';
+import Novels from '../screens/Novels';
+import Cart from '../screens/Cart';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -20,7 +26,13 @@ const index = () => {
           <Stack.Screen name='SignIn' component={SignIn} />
           <Stack.Screen name='SignUp' component={SignUp} />
           <Stack.Screen name='ForgetPassword' component={ForgetPassword} />
+          <Stack.Screen name='AddProduct' component={AddProduct} />
           <Stack.Screen name='Profile' component={Profile} />
+          <Stack.Screen name='DetailsScreen' component={DetailsScreen} />
+          <Stack.Screen name='Top Books' component={TopBooks} />
+          <Stack.Screen name='Books' component={Books} />
+          <Stack.Screen name='Novels' component={Novels} />
+          <Stack.Screen name='Cart' component={Cart} />
           <Stack.Screen
             name='EditProfileScreen'
             component={EditProfileScreen}
