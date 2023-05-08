@@ -120,11 +120,11 @@ const DetailsScreen = ({ navigation, route }) => {
             <View style={styles.favbtn}>
               <Icon name="heart-outline" color="#ffff" size={28} />
             </View>
-            <TouchableOpacity onPress={handleAddToCart}>
+            {/* <TouchableOpacity onPress={handleAddToCart}> */}
               <View style={styles.cartbtn}>
                 <Text style={styles.carttext}>Add to cart</Text>
               </View>
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
           </View>
         </View>
       </ScrollView>
