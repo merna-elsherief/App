@@ -131,13 +131,14 @@ const styles = StyleSheet.create({
   },
 
   quantitycontainer: {
-    height: 35,
+    height: 30,
     width: 100,
     backgroundColor: '#e5d1b8',
     borderRadius: 7,
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
+    marginLeft:10,
   },
   quantityBtn: {
     height: 25,
@@ -147,6 +148,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     justifyContent: 'center',
     alignItems: 'center',
+   
   },
   quantitytext: {
     fontWeight: 'bold',
