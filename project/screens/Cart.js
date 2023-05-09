@@ -11,9 +11,16 @@ import {
   Pressable,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import books from '../const/books';
 import CustomButton from '../components/customButton';
+import { Button } from 'react-native-paper';
 const Cart = ({ navigation }) => {
+
+  const Payment = () =>{
+    navigation.navigate('PaymentScreen');
+  }
+
   const [value, setValue] = useState(0);
 
   const addfun = () => {
@@ -27,6 +34,7 @@ const Cart = ({ navigation }) => {
     }
   };
   const CartCard = ({ book }) => {
+
     return (
       <View style={styles.cartcard}>
         <Image source={book.image} style={{ height: 80, width: 80 }} />
@@ -61,7 +69,8 @@ const Cart = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Cart</Text>
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Cart</Text>
+        
       </View>
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -73,21 +82,21 @@ const Cart = ({ navigation }) => {
           <View>
             <View
               style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                flexDirection: "row",
+                justifyContent: "space-between",
                 marginVertical: 15,
               }}
             >
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+              <Text style={{ fontSize: 18, fontWeight: "bold" }}>
                 Total Price
               </Text>
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>EPG50</Text>
+              <Text style={{ fontSize: 18, fontWeight: "bold" }}>EPG50</Text>
             </View>
-
-            <View style={{justifyContent:'center',marginLeft:50}} >
-              <CustomButton text='CHECKOUT'  type='checkout'/>
-
-            </View>
+          <Icon
+          name="cart-outline"
+          size={28}
+          onPress={() => navigation.navigate("PaymentScreen")}
+        ></Icon>
           </View>
         )}
       />
@@ -104,7 +113,7 @@ const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 10,
   },
@@ -152,6 +161,16 @@ const styles = StyleSheet.create({
   },
   quantitytext: {
     fontWeight: 'bold',
+  },
+  containercheckout: {
+    width: '90%',
+    backgroundColor: '#c2956e',
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 40,
+    marginBottom: 10,
   },
 });
 export default Cart;
