@@ -15,6 +15,7 @@ import React from "react";
 import books from "../const/books";
 import CustomInput from "../components/customInput";
 import CustomButton from "../components/customButton";
+
 import {
   doc,
   setDoc,
@@ -31,6 +32,7 @@ const home = ({ navigation }) => {
     navigation.navigate('SignIn');
   };*/
   ///////////////////////////////////////////////////////////////
+  
   const [booksss, setBooksss] = useState([]);
   useEffect(() => {});
   useLayoutEffect(() => {
@@ -184,6 +186,7 @@ const home = ({ navigation }) => {
           <View style={styles.searchcontainer}>
             <Icon name="magnify" color="grey" size={25} />
             <CustomInput placeholder="search" />
+       
           </View>
           <View style={styles.sortBtn}>
             <Icon name="tune" color="#ffff" size={25} />
