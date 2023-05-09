@@ -19,6 +19,7 @@ const DetailsScreen = ({ navigation, route }) => {
   const book = route.params;
   const [value, setValue] = useState(0);
   const [product, setProduct] = useState([]);
+  const [Title, setTitle] = useState(new Map());
   const addfun = () => {
     if (value < book.data.count) {
       setValue(value + 1);
@@ -66,6 +67,36 @@ const DetailsScreen = ({ navigation, route }) => {
   // };
   //////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
+  const addtoCart = async () => {
+    const cartRef = doc(db, "cart", auth.currentUser.uid);
+    const cartDoc = await getDoc(cartRef);
+
+    if (cartDoc.exists()) {
+      // Cart document already exists for this user, so update it
+      await updateDoc(cartRef, {
+        [Title]: {
+          Price: book.data.price,
+          Productimg: book.data.img,
+          quantity: value,
+          title: book.data.title,
+        },
+      });
+    } else {
+      // Cart document does not exist yet for this user, so create it
+      await setDoc(cartRef, {
+        [Title]: {
+          Price: book.data.price,
+          Productimg: book.data.img,
+          cart_id: auth.currentUser.uid,
+          quantity: value,
+          title: book.data.title,
+        },
+      });
+    }
+
+    console.log(auth.currentUser.email);
+  };
+
   ///////////////////////////////////////////////////////////////////////////////////////
   return (
     <SafeAreaView style={styles.container}>
@@ -121,9 +152,9 @@ const DetailsScreen = ({ navigation, route }) => {
               <Icon name="heart-outline" color="#ffff" size={28} />
             </View>
             {/* <TouchableOpacity onPress={handleAddToCart}> */}
-              <View style={styles.cartbtn}>
-                <Text style={styles.carttext}>Add to cart</Text>
-              </View>
+            <View style={styles.cartbtn}>
+              <Text style={styles.carttext}>Add to cart</Text>
+            </View>
             {/* </TouchableOpacity> */}
           </View>
         </View>
