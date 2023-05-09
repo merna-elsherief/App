@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import React from "react";
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { signOut } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import img from "../assets/images/image3.jpg";
 import CustomButton from "../components/customButton";
@@ -77,6 +78,17 @@ const addProduct = ({ navigation }) => {
     if (!result.canceled) {
       setImage(result.uri);
     }
+  };
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log("Done");
+        navigation.navigate("Welcome");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   };
   useEffect(() => {
     const uploadImage = async () => {
@@ -257,7 +269,6 @@ const addProduct = ({ navigation }) => {
             placeholderTextColor="#666666"
             autoCorrect={false}
             style={[styles.textInput, { color: colors.text }]}
-            
             onChangeText={(value) => handleOnChangeText(value, "count")}
           />
         </View>
@@ -268,7 +279,6 @@ const addProduct = ({ navigation }) => {
             placeholderTextColor="#666666"
             autoCorrect={false}
             style={[styles.textInput, { color: colors.text }]}
-            
             onChangeText={(value) => handleOnChangeText(value, "rating")}
           />
         </View>
@@ -284,6 +294,9 @@ const addProduct = ({ navigation }) => {
           style={styles.commandButton}
         >
           <Text style={styles.panelButtonTitle}>Add Product</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleSignOut} style={styles.commandButton}>
+          <Text style={styles.panelButtonTitle}>Log Out</Text>
         </TouchableOpacity>
       </View>
     </View>
