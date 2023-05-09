@@ -186,6 +186,17 @@ const books = [
     description:
       'Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life she wants.  She’s come a long way from the small town in Maine where she grew up — she graduated from college, moved to Boston, and started her own business.  So when she feels a spark with a gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too good to be true. Ryle is assertive, stubborn, maybe even a little arrogant. He’s also sensitive, brilliant, and has a total soft spot for Lily. And the way he looks in scrubs certainly doesn’t hurt. Lily can’t get him out of her head. But Ryle’s complete aversion to relationships is disturbing. Even as Lily finds herself becoming the exception to his “no dating” rule, she can’t help but wonder what made him that way in the first place. As questions about her new relationship overwhelm her, so do thoughts of Atlas Corrigan — her first love and a link to the past she left behind. He was her kindred spirit, her protector. When Atlas suddenly reappears, everything Lily has built with Ryle is threatened.',
   },
+  {
+    id: '18',
+    name: 'Surrounded by idiots',
+    image: require('../assets/images/books/24.jpg'),
+    price: '550 EPG',
+    rating: 4.1,
+    liked: true,
+    reviews: 450,
+    description:
+      'A runaway bestseller in Sweden that has sold more than a million copies worldwide, Surrounded by Idiots shares a groundbreaking new method of understanding the people around you that will change how you interact with everyone from your coworkers to your spouse.Author Thomas Erikson explains that there are four key behavior types that define how we interact with and perceive the people around us. Understanding someone’s pattern of behavior is the key to successful communication. Erikson breaks down the four kinds of behavior types—Reds who are dominant and commanding, Yellows who are social and optimistic, Greens who are laid back and friendly, and Blues who are analytical and precise—and explains how to identify and interact with each type of person. Instead of being bogged down with overly technical categorizations, the simple four color system allows you to speedily identify a friend or coworker and adjust how you speak and share with them.Surrounded by Idiots is full of practical information for interacting with people based on their color, including the strengths and weaknesses of all the profiles, how to give positive and negative feedback to each, and the best way to word an email when writing to someone with a different profile.',
+  },
 ];
 
 export default books;

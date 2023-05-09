@@ -16,10 +16,9 @@ import books from '../const/books';
 import CustomButton from '../components/customButton';
 import { Button } from 'react-native-paper';
 const Cart = ({ navigation }) => {
-
-  const Payment = () =>{
+  const Payment = () => {
     navigation.navigate('PaymentScreen');
-  }
+  };
 
   const [value, setValue] = useState(0);
 
@@ -34,7 +33,6 @@ const Cart = ({ navigation }) => {
     }
   };
   const CartCard = ({ book }) => {
-
     return (
       <View style={styles.cartcard}>
         <Image source={book.image} style={{ height: 80, width: 80 }} />
@@ -69,8 +67,7 @@ const Cart = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Cart</Text>
-        
+        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Cart</Text>
       </View>
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -82,21 +79,28 @@ const Cart = ({ navigation }) => {
           <View>
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginVertical: 15,
               }}
             >
-              <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
                 Total Price
               </Text>
-              <Text style={{ fontSize: 18, fontWeight: "bold" }}>EPG50</Text>
+              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>EPG50</Text>
             </View>
-          <Icon
-          name="cart-outline"
-          size={28}
-          onPress={() => navigation.navigate("PaymentScreen")}
-        ></Icon>
+            <View style={styles.containercheckout}>
+            
+              <Icon
+                
+                size={28}
+                color='white'
+                justifyContent='center'
+                onPress={() => navigation.navigate('PaymentScreen')}
+              >
+                <Text style={{fontSize:25, fontWeight:'bold',color:'#ffff'}}> CHECKOUT</Text>
+              </Icon>
+            </View>
           </View>
         )}
       />
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    marginLeft:10,
+    marginLeft: 10,
   },
   quantityBtn: {
     height: 25,
@@ -157,20 +161,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     justifyContent: 'center',
     alignItems: 'center',
-   
   },
   quantitytext: {
     fontWeight: 'bold',
   },
   containercheckout: {
-    width: '90%',
+    width: '50%',
+    flexDirection: 'row',
     backgroundColor: '#c2956e',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     marginTop: 40,
     marginBottom: 10,
+    paddingHorizontal: 10,
+    marginLeft:90
   },
 });
 export default Cart;

@@ -16,6 +16,8 @@
     "@mui/material": "^5.12.2",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@rneui/base": "github:react-native-elements/react-native-elements#base",
+    "@rneui/themed": "github:react-native-elements/react-native-elements#themed",
     "@stripe/stripe-react-native": "^0.27.1",
     "expo": "~48.0.9",
     "expo-image-picker": "^14.1.1",

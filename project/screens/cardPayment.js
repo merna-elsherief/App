@@ -78,8 +78,8 @@ export default function CheckoutScreen({navigation}) {
     // Perform order placement logic here
     console.log('Placing order...');
     console.log('Payment successful!', 'Your payment was processed successfully.')
-    // window.alert("Payment successful!', 'Your payment was processed successfully.")
-    navigation.navigate("Home");
+     window.alert("Payment successful!', 'Your payment was processed successfully.")
+  
   };
 
 
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#c2956e',
     padding: 10,
     borderRadius: 5,
   },
