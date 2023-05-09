@@ -15,6 +15,7 @@ import Novels from '../screens/Novels';
 import Cart from '../screens/Cart';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import PaymentScreen from '../screens/PaymentScreen';
 
 const Stack = createNativeStackNavigator();
 const index = () => {
@@ -38,6 +39,7 @@ const index = () => {
             component={EditProfileScreen}
           />
           <Stack.Screen name='Home' component={Home} />
+          <Stack.Screen name='PaymentScreen' component={PaymentScreen} />
         </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>
