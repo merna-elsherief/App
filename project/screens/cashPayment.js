@@ -75,7 +75,7 @@ export default function CashPaymentScreen({navigation}) {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: 'blue',
+        backgroundColor: '#c2956e',
         padding: 10,
         borderRadius: 5,
         margin:20,
