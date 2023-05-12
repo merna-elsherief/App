@@ -5,7 +5,7 @@ import { db } from "../firebase/fireBase";
 import { collection, addDoc} from "firebase/firestore";
 
 
-export default function CheckoutScreen({navigation}) {
+export default function CheckoutScreen({}) {
   
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
@@ -77,8 +77,8 @@ export default function CheckoutScreen({navigation}) {
      addOrderToDataBase();
     // Perform order placement logic here
     console.log('Placing order...');
-    console.log('Payment successful!', 'Your payment was processed successfully.')
-     window.alert("Payment successful!', 'Your payment was processed successfully.")
+    // console.log('Payment successful!', 'Your payment was processed successfully.')
+    window.alert("Payment successful!', 'Your payment was processed successfully.")
   
   };
 
@@ -123,7 +123,7 @@ export default function CheckoutScreen({navigation}) {
   };
   
   return (
-    <ScrollView>
+    <View>
       <View style={styles.container}>
         <Text style={styles.title}>Checkout</Text>
         <View style={styles.section}>
@@ -147,7 +147,7 @@ export default function CheckoutScreen({navigation}) {
           <Text style={styles.buttonText}>Place Order</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -186,5 +186,9 @@ const styles = StyleSheet.create({
       fontSize: 18,
       textAlign: 'center',
     },
+    errorMessage: {
+      color:'red',
+      fontSize:19,
+    }
 
   });
