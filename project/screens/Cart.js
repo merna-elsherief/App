@@ -92,7 +92,11 @@ const Cart = ({ navigation }) => {
               </Text>
               <Text style={{ fontSize: 18, fontWeight: 'bold' }}>EPG50</Text>
             </View>
-            <View style={styles.containercheckout}>
+
+            <View style={{justifyContent:'center',marginLeft:50}} >
+              <CustomButton text='CHECKOUT'  type='checkout' onPress={() => navigation.navigate('PaymentScreen')}/>
+                    </View>
+            {/* <View style={styles.containercheckout}>
             
               <Icon
                 
@@ -103,7 +107,7 @@ const Cart = ({ navigation }) => {
               >
                 <Text style={{fontSize:25, fontWeight:'bold',color:'#ffff'}}> CHECKOUT</Text>
               </Icon>
-            </View>
+            </View> */}
           </View>
         )}
       />

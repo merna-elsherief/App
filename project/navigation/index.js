@@ -16,6 +16,8 @@ import Cart from '../screens/Cart';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PaymentScreen from '../screens/PaymentScreen';
+import cardPayment from '../screens/cardPayment';
+import CashPayment from '../screens/cashPayment';
 
 const Stack = createNativeStackNavigator();
 const index = () => {
@@ -40,6 +42,8 @@ const index = () => {
           />
           <Stack.Screen name='Home' component={Home} />
           <Stack.Screen name='PaymentScreen' component={PaymentScreen} />
+          <Stack.Screen name='cardPayment'  component={cardPayment} />
+          <Stack.Screen name='CashPayment' component={CashPayment} />
         </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>
