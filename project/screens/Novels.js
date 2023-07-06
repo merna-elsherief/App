@@ -13,29 +13,25 @@ import {
 import books from '../const/books';
 const Novels = ({ navigation }) => {
   const CartCard = ({ book }) => {
-    if (book.type == 'novel') {
-      return (
-        <View style={styles.cartcard}>
-          <Image source={book.image} style={{ height: 80, width: 80 }} />
-          <View
-            style={{
-              height: 100,
-              marginLeft: 10,
-              paddingVertical: 20,
-              flex: 1,
-            }}
-          >
-            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
-              {book.name}
-            </Text>
+    return (
+      <View style={styles.cartcard}>
+        <Image source={book.image} style={{ height: 80, width: 80 }} />
+        <View
+          style={{
+            height: 100,
+            marginLeft: 10,
+            paddingVertical: 20,
+            flex: 1,
+          }}
+        >
+          <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{book.name}</Text>
 
-            <Text style={{ fontSize: 17, fontWeight: 'bold' }}>
-              EPG{book.price}
-            </Text>
-          </View>
+          <Text style={{ fontSize: 17, fontWeight: 'bold' }}>
+            EPG{book.price}
+          </Text>
         </View>
-      );
-    }
+      </View>
+    );
   };
   return (
     <SafeAreaView style={styles.container}>

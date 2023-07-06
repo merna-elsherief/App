@@ -13,7 +13,6 @@ import {
 import books from '../const/books';
 const Books = ({ navigation }) => {
   const CartCard = ({ book }) => {
-    if (book.type=='book') {
     return (
       <View style={styles.cartcard}>
         <Image source={book.image} style={{ height: 80, width: 80 }} />
@@ -33,7 +32,6 @@ const Books = ({ navigation }) => {
         </View>
       </View>
     );
-        }
   };
   return (
     <SafeAreaView style={styles.container}>

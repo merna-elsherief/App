@@ -15,31 +15,25 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import books from '../const/books';
 const TopBooks = ({ navigation }) => {
   const CartCard = ({ book }) => {
-    if (book.rating >= 4) {
-      return (
-        <View style={styles.cartcard}>
-          <Image source={book.image} style={{ height: 80, width: 80 }} />
-          <View
-            style={{
-              height: 100,
-              marginLeft: 10,
-              paddingVertical: 20,
-              flex: 1,
-            }}
-          >
-            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
-              {book.name}
-            </Text>
-            <Text style={{ fontSize: 17, fontWeight: 'bold' }}>
-              EPG{book.price}
-            </Text>
-            <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
-              rating: {book.rating}
-            </Text>
-          </View>
+    return (
+      <View style={styles.cartcard}>
+        <Image source={book.image} style={{ height: 80, width: 80 }} />
+        <View
+          style={{
+            height: 100,
+            marginLeft: 10,
+            paddingVertical: 20,
+            flex: 1,
+          }}
+        >
+          <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{book.name}</Text>
+
+          <Text style={{ fontSize: 17, fontWeight: 'bold' }}>
+            EPG{book.price}
+          </Text>
         </View>
-      );
-    }
+      </View>
+    );
   };
   return (
     <SafeAreaView style={styles.container}>
